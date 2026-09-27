@@ -93,7 +93,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/offres/{offre}', [AdminController::class, 'deleteOffre'])->name('offres.delete');
         Route::get('/candidatures', [AdminController::class, 'candidatures'])->name('candidatures');
         Route::get('/contacts', [AdminController::class, 'contacts'])->name('contacts');
-        Route::patch('/contacts/{contact}/lu', [AdminController::class, 'marquerContactLu'])->name('contacts.lu');
+        Route::get('/contacts/{contact}', [AdminController::class, 'showContact'])->name('contacts.show');
+        Route::post('/contacts/{contact}/repondre', [AdminController::class, 'repondreContact'])->name('contacts.repondre');
         Route::delete('/contacts/{contact}', [AdminController::class, 'deleteContact'])->name('contacts.delete');
         Route::get('/statistiques', [AdminController::class, 'stats'])->name('stats');
         Route::get('/parametres', [AdminController::class, 'parametres'])->name('parametres');

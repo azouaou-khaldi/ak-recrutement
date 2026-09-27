@@ -10,27 +10,11 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5">
         <h2 class="font-bold text-sm mb-4">Inscriptions par mois</h2>
-        <div class="flex items-end gap-2 h-32">
-            @foreach($stats['inscriptions_mois'] as $mois => $nb)
-            <div class="flex flex-col items-center gap-1 flex-1">
-                <p class="text-xs text-brand font-bold">{{ $nb }}</p>
-                <div class="w-full rounded-t-sm bg-brand" style="height: {{ max(4, $nb * 4) }}px"></div>
-                <p class="text-xs text-gray-600">{{ $mois }}</p>
-            </div>
-            @endforeach
-        </div>
+        @include('admin.partials.graphique_barres', ['donnees' => $stats['inscriptions_mois'], 'couleurBarre' => 'bg-brand', 'couleurTexte' => 'text-brand'])
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5">
         <h2 class="font-bold text-sm mb-4">Offres publiées par mois</h2>
-        <div class="flex items-end gap-2 h-32">
-            @foreach($stats['offres_mois'] as $mois => $nb)
-            <div class="flex flex-col items-center gap-1 flex-1">
-                <p class="text-xs text-blue-400 font-bold">{{ $nb }}</p>
-                <div class="w-full rounded-t-sm bg-blue-500" style="height: {{ max(4, $nb * 4) }}px"></div>
-                <p class="text-xs text-gray-600">{{ $mois }}</p>
-            </div>
-            @endforeach
-        </div>
+        @include('admin.partials.graphique_barres', ['donnees' => $stats['offres_mois'], 'couleurBarre' => 'bg-blue-500', 'couleurTexte' => 'text-blue-400'])
     </div>
 </div>
 

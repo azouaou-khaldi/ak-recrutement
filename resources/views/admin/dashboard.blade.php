@@ -48,12 +48,14 @@
         <div class="flex justify-between items-center mb-4">
             <h2 class="font-bold text-sm">Activité mensuelle</h2>
         </div>
+        {{-- Hauteurs proportionnelles au mois le plus actif : la plus haute barre fait 100 % du cadre --}}
+        @php $maxActivite = max(1, collect($stats['activite_mois'])->flatten()->max()); @endphp
         <div class="flex items-end gap-1 sm:gap-3 h-28">
             @foreach($stats['activite_mois'] as $mois => $data)
             <div class="flex flex-col items-center gap-1 flex-1">
                 <div class="flex items-end gap-1 h-24">
-                    <div class="w-3 rounded-t-sm bg-brand" style="height: {{ max(4, $data['inscriptions'] * 3) }}px"></div>
-                    <div class="w-3 rounded-t-sm bg-blue-500" style="height: {{ max(4, $data['offres'] * 3) }}px"></div>
+                    <div class="w-3 rounded-t-sm bg-brand" style="height: max(4px, {{ round($data['inscriptions'] / $maxActivite * 100) }}%)" title="{{ $data['inscriptions'] }} inscription(s)"></div>
+                    <div class="w-3 rounded-t-sm bg-blue-500" style="height: max(4px, {{ round($data['offres'] / $maxActivite * 100) }}%)" title="{{ $data['offres'] }} offre(s)"></div>
                 </div>
                 <p class="text-xs text-gray-600">{{ $mois }}</p>
             </div>

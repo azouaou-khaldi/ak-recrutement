@@ -9,9 +9,10 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'email', 'sujet', 'message', 'lu'];
+    protected $fillable = ['nom', 'email', 'sujet', 'message', 'lu', 'reponse', 'repondu_le'];
 
     protected $casts = [
-        'lu' => 'boolean',
+        'lu'         => 'boolean',
+        'repondu_le' => 'datetime',
     ];
 }

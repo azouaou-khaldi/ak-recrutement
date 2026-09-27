@@ -63,7 +63,7 @@
 
     <div class="p-3">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Communication</p>
-        <a href="{{ route('admin.contacts') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.contacts') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+        <a href="{{ route('admin.contacts') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.contacts*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="enveloppe" /> Messages contact</span>
             @php $contacts = \App\Models\Contact::where('lu', false)->count(); @endphp
             @if($contacts > 0)

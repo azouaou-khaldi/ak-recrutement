@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\ReponseContactMail;
 use App\Models\Candidature;
 use App\Models\Contact;
 use App\Models\Offre;
@@ -8,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -125,16 +127,38 @@ class AdminController extends Controller
         return view('admin.contacts', compact('contacts'));
     }
 
-    public function marquerContactLu(Contact $contact): RedirectResponse
+    public function showContact(Contact $contact): View
     {
-        $contact->update(['lu' => true]);
-        return back()->with('success', 'Message marqué comme lu.');
+        // Ouvrir le message suffit à le marquer comme lu
+        if (!$contact->lu) {
+            $contact->update(['lu' => true]);
+        }
+
+        return view('admin.contact_show', compact('contact'));
+    }
+
+    public function repondreContact(Request $request, Contact $contact): RedirectResponse
+    {
+        $request->validate([
+            'reponse' => 'required|string|max:5000',
+        ]);
+
+        $contact->update([
+            'reponse'    => $request->reponse,
+            'repondu_le' => now(),
+        ]);
+
+        // E-mail envoyé en file d'attente (ShouldQueue) à l'adresse saisie dans le formulaire de contact
+        Mail::to($contact->email)->send(new ReponseContactMail($contact, $request->reponse));
+
+        return redirect()->route('admin.contacts.show', $contact)->with('success', 'Réponse envoyée à ' . $contact->email . '.');
     }
 
     public function deleteContact(Contact $contact): RedirectResponse
     {
         $contact->delete();
-        return back()->with('success', 'Message supprimé.');
+        // Retour à la liste (et non back() : la page de détail n'existe plus)
+        return redirect()->route('admin.contacts')->with('success', 'Message supprimé.');
     }
 
     // ─── STATISTIQUES ────────────────────────────────────────

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Candidature;
-use App\Models\Contact;
 use App\Models\Offre;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -86,16 +85,6 @@ class SecuriteTest extends TestCase
             'password'              => '12345678',
             'password_confirmation' => '12345678',
         ])->assertSessionHasErrors('password');
-    }
-
-    public function test_l_admin_peut_marquer_un_contact_comme_lu(): void
-    {
-        $admin = User::factory()->create(['role' => 'admin']);
-        $contact = Contact::create(['nom' => 'Test', 'email' => 't@t.fr', 'sujet' => 'S', 'message' => 'M']);
-
-        $this->actingAs($admin)->patch("/admin/contacts/{$contact->id}/lu");
-
-        $this->assertTrue($contact->fresh()->lu);
     }
 
     public function test_un_candidat_ne_peut_pas_acceder_a_l_admin(): void
