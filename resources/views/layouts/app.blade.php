@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', "AK Recrutement")</title>
+    @include('partials.icones')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="fond-clair bg-light text-gray-900 min-h-screen">
 
     <nav class="flex items-center justify-between px-6 py-4 border-b border-darkBorder bg-dark">
-        <a href="{{ route('home') }}" class="flex items-center gap-2 text-2xl font-bold">
-            <span class="text-white">AK</span><span class="text-brandVif"> Recrutement</span>
+        <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-2xl font-bold">
+            <x-logo class="size-9" />
+            <span class="whitespace-nowrap"><span class="text-white">AK</span> <span class="text-brandVif">Recrutement</span></span>
         </a>
         <div class="hidden md:flex items-center gap-8 font-medium text-gray-300">
             <a href="{{ route('home') }}" class="hover:text-brandVif transition">Accueil</a>
@@ -82,7 +84,7 @@
     <footer class="bg-dark border-t border-darkBorder text-white px-6 py-12">
         <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
             <div>
-                <p class="text-xl font-bold">AK <span class="text-brandVif">Recrutement</span></p>
+                <p class="text-xl font-bold flex items-center gap-2"><x-logo /> <span>AK <span class="text-brandVif">Recrutement</span></span></p>
                 <p class="mt-2 text-gray-200">Votre partenaire de confiance pour le recrutement et l'emploi.</p>
             </div>
             <div>

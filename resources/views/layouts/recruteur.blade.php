@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'AK Recrutement')</title>
+    @include('partials.icones')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
@@ -17,8 +18,9 @@
 <nav class="bg-dark border-b border-darkBorder px-6 h-14 flex items-center justify-between shrink-0 z-10">
     <div class="flex items-center gap-2">
         <x-burger controls="menu-lateral" class="-ml-2" />
-        <a href="{{ route('home') }}" class="text-xl font-extrabold">
-            <span class="text-white">AK</span> <span class="text-brandVif">Recrutement</span>
+        <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-extrabold">
+            <x-logo />
+            <span class="whitespace-nowrap"><span class="text-white">AK</span> <span class="text-brandVif">Recrutement</span></span>
         </a>
     </div>
     <div class="flex items-center gap-3">
