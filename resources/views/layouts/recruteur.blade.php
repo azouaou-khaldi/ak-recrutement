@@ -41,41 +41,41 @@
 <aside id="menu-lateral" data-menu-hidden-class="-translate-x-full" class="w-56 bg-dark border-r border-darkBorder flex flex-col shrink-0 sidebar-scroll overflow-y-auto fixed top-14 bottom-0 left-0 z-30 -translate-x-full transition-transform duration-200 md:static md:translate-x-0">
     <div class="p-3 pt-4">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Mon espace</p>
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('dashboard') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>📊</span> Tableau de bord
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('dashboard') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="tableau-de-bord" /> Tableau de bord
         </a>
         <a href="{{ route('recruteur.offres') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.offres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-2"><span>💼</span> Mes offres</span>
+            <span class="flex items-center gap-3"><x-icone nom="offres" /> Mes offres</span>
             @php $nbOffres = auth()->user()->offres()->count(); @endphp
             @if($nbOffres > 0)
                 <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $nbOffres }}</span>
             @endif
         </a>
         <a href="{{ route('recruteur.candidatures') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.candidatures') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-2"><span>👥</span> Candidatures</span>
+            <span class="flex items-center gap-3"><x-icone nom="candidatures" /> Candidatures</span>
             @php $nbCandidatures = \App\Models\Candidature::whereHas('offre', fn($q) => $q->where('user_id', auth()->id()))->where('statut','en_attente')->count(); @endphp
             @if($nbCandidatures > 0)
                 <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $nbCandidatures }}</span>
             @endif
         </a>
-        <a href="{{ route('messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('messages.*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>💬</span> Messages
+        <a href="{{ route('messages.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('messages.*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="messages" /> Messages
         </a>
     </div>
     <div class="p-3">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Mon profil</p>
-        <a href="{{ route('recruteur.profil') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.profil*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>👤</span> Mon profil
+        <a href="{{ route('recruteur.profil') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.profil*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="profil" /> Mon profil
         </a>
-        <a href="{{ route('recruteur.parametres') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.parametres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>⚙️</span> Paramètres
+        <a href="{{ route('recruteur.parametres') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.parametres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="parametres" /> Paramètres
         </a>
     </div>
     <div class="mt-auto p-3 border-t border-darkBorder">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 w-full">
-                <span>🚪</span> Déconnexion
+            <button class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 w-full">
+                <x-icone nom="deconnexion" /> Déconnexion
             </button>
         </form>
     </div>

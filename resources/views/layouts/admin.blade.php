@@ -44,19 +44,19 @@
 
     <div class="p-3 pt-4">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Principal</p>
-        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.dashboard') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>📊</span> Tableau de bord
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.dashboard') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="tableau-de-bord" /> Tableau de bord
         </a>
         <a href="{{ route('admin.users') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.users') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-2"><span>👥</span> Utilisateurs</span>
+            <span class="flex items-center gap-3"><x-icone nom="utilisateurs" /> Utilisateurs</span>
             <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ \App\Models\User::count() }}</span>
         </a>
         <a href="{{ route('admin.offres') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.offres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-2"><span>💼</span> Offres</span>
+            <span class="flex items-center gap-3"><x-icone nom="offres" /> Offres</span>
             <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ \App\Models\Offre::count() }}</span>
         </a>
         <a href="{{ route('admin.candidatures') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.candidatures') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-2"><span>📄</span> Candidatures</span>
+            <span class="flex items-center gap-3"><x-icone nom="candidatures" /> Candidatures</span>
             <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ \App\Models\Candidature::count() }}</span>
         </a>
     </div>
@@ -64,7 +64,7 @@
     <div class="p-3">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Communication</p>
         <a href="{{ route('admin.contacts') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.contacts') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-2"><span>✉️</span> Messages contact</span>
+            <span class="flex items-center gap-3"><x-icone nom="enveloppe" /> Messages contact</span>
             @php $contacts = \App\Models\Contact::where('lu', false)->count(); @endphp
             @if($contacts > 0)
                 <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $contacts }}</span>
@@ -74,23 +74,23 @@
 
     <div class="p-3">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Analytique</p>
-        <a href="{{ route('admin.stats') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.stats') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>📈</span> Statistiques
+        <a href="{{ route('admin.stats') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.stats') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="statistiques" /> Statistiques
         </a>
     </div>
 
     <div class="p-3">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Compte</p>
-        <a href="{{ route('admin.parametres') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.parametres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span>⚙️</span> Paramètres
+        <a href="{{ route('admin.parametres') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.parametres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
+            <x-icone nom="parametres" /> Paramètres
         </a>
     </div>
 
     <div class="mt-auto p-3 border-t border-darkBorder">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 w-full">
-                <span>🚪</span> Déconnexion
+            <button class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 w-full">
+                <x-icone nom="deconnexion" /> Déconnexion
             </button>
         </form>
     </div>
