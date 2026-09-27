@@ -20,7 +20,7 @@
             <div class="flex-1">
                 <div class="flex items-center gap-2 mb-1">
                     @if(!$contact->lu)
-                        <span class="w-2 h-2 bg-brand rounded-full flex-shrink-0"></span>
+                        <span class="w-2 h-2 bg-brand rounded-full shrink-0"></span>
                     @endif
                     <p class="font-bold">{{ $contact->sujet }}</p>
                 </div>

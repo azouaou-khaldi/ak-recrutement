@@ -6,13 +6,13 @@
 <div class="flex items-center justify-between mb-5">
     <h1 class="text-2xl font-extrabold">Candidatures <span class="text-brand">reçues</span></h1>
     <form method="GET" class="flex gap-2">
-        <select name="offre" class="bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand">
+        <select name="offre" class="bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Toutes les offres</option>
             @foreach(auth()->user()->offres as $o)
                 <option value="{{ $o->id }}" {{ request('offre') == $o->id ? 'selected' : '' }}>{{ $o->titre }}</option>
             @endforeach
         </select>
-        <select name="statut" class="bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand">
+        <select name="statut" class="bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="en_attente" {{ request('statut')=='en_attente'?'selected':'' }}>En attente</option>
             <option value="acceptee" {{ request('statut')=='acceptee'?'selected':'' }}>Acceptées</option>
@@ -48,7 +48,7 @@
                 <tr class="hover:bg-orange-50 transition">
                     <td class="px-4 py-3">
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-xs font-bold flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-xs font-bold shrink-0">
                                 {{ strtoupper(substr($c->candidat->name, 0, 2)) }}
                             </div>
                             <div>
@@ -74,18 +74,18 @@
                                 <form method="POST" action="{{ route('candidatures.statut', $c) }}">
                                     @csrf @method('PATCH')
                                     <input type="hidden" name="statut" value="acceptee">
-                                    <button class="text-xs bg-green-50 border border-green-300 text-green-700 px-2 py-1 rounded font-semibold hover:bg-green-50 transition">Accepter</button>
+                                    <button class="text-xs bg-green-50 border border-green-300 text-green-700 px-2 py-1 rounded-sm font-semibold hover:bg-green-50 transition">Accepter</button>
                                 </form>
                                 <form method="POST" action="{{ route('candidatures.statut', $c) }}">
                                     @csrf @method('PATCH')
                                     <input type="hidden" name="statut" value="refusee">
-                                    <button class="text-xs bg-red-50 border border-red-300 text-red-600 px-2 py-1 rounded font-semibold hover:bg-red-50 transition">Refuser</button>
+                                    <button class="text-xs bg-red-50 border border-red-300 text-red-600 px-2 py-1 rounded-sm font-semibold hover:bg-red-50 transition">Refuser</button>
                                 </form>
                             @endif
-                            <a href="{{ route('recruteur.candidat.show', $c->candidat) }}" class="text-xs bg-white border border-brand text-brand px-2 py-1 rounded font-semibold hover:bg-orange-50 transition">👤 Profil</a>
-                            <a href="{{ route('messages.show', $c->candidat) }}" class="text-xs bg-blue-50 border border-blue-300 text-blue-600 px-2 py-1 rounded font-semibold hover:bg-blue-50 transition">💬 Contacter</a>
+                            <a href="{{ route('recruteur.candidat.show', $c->candidat) }}" class="text-xs bg-white border border-brand text-brand px-2 py-1 rounded-sm font-semibold hover:bg-orange-50 transition">👤 Profil</a>
+                            <a href="{{ route('messages.show', $c->candidat) }}" class="text-xs bg-blue-50 border border-blue-300 text-blue-600 px-2 py-1 rounded-sm font-semibold hover:bg-blue-50 transition">💬 Contacter</a>
                             @if($c->candidat->cv_path)
-                                <a href="{{ route('cv.telecharger', $c->candidat) }}" target="_blank" class="text-xs bg-white border border-lightBorder text-gray-500 px-2 py-1 rounded font-semibold hover:border-brand hover:text-brand transition">📄 CV</a>
+                                <a href="{{ route('cv.telecharger', $c->candidat) }}" target="_blank" class="text-xs bg-white border border-lightBorder text-gray-500 px-2 py-1 rounded-sm font-semibold hover:border-brand hover:text-brand transition">📄 CV</a>
                             @endif
                         </div>
                     </td>

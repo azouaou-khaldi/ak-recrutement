@@ -8,7 +8,7 @@
 {{-- STATS --}}
 <div class="grid grid-cols-3 gap-4 mb-6">
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
-        <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center text-xl flex-shrink-0">💼</div>
+        <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">💼</div>
         <div>
             <p class="text-2xl font-extrabold">{{ $stats['offres'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Offres publiées</p>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
-        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-xl flex-shrink-0">👥</div>
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-xl shrink-0">👥</div>
         <div>
             <p class="text-2xl font-extrabold">{{ $stats['candidatures'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Candidatures reçues</p>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
-        <div class="w-11 h-11 rounded-xl bg-yellow-50 flex items-center justify-center text-xl flex-shrink-0">⏳</div>
+        <div class="w-11 h-11 rounded-xl bg-yellow-50 flex items-center justify-center text-xl shrink-0">⏳</div>
         <div>
             <p class="text-2xl font-extrabold">{{ $stats['en_attente'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">En attente</p>
@@ -54,7 +54,7 @@
         @endphp
         <div class="flex items-center justify-between py-2.5 border-b border-lightBorder last:border-0">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full {{ $color }} flex items-center justify-center text-xs font-bold flex-shrink-0">
+                <div class="w-8 h-8 rounded-full {{ $color }} flex items-center justify-center text-xs font-bold shrink-0">
                     {{ strtoupper(substr($c->candidat->name, 0, 2)) }}
                 </div>
                 <div>
@@ -67,19 +67,19 @@
                     <form method="POST" action="{{ route('candidatures.statut', $c) }}">
                         @csrf @method('PATCH')
                         <input type="hidden" name="statut" value="acceptee">
-                        <button class="text-xs bg-green-50 border border-green-300 text-green-700 px-2 py-1 rounded font-semibold hover:bg-green-50 transition">✓</button>
+                        <button class="text-xs bg-green-50 border border-green-300 text-green-700 px-2 py-1 rounded-sm font-semibold hover:bg-green-50 transition">✓</button>
                     </form>
                     <form method="POST" action="{{ route('candidatures.statut', $c) }}">
                         @csrf @method('PATCH')
                         <input type="hidden" name="statut" value="refusee">
-                        <button class="text-xs bg-red-50 border border-red-300 text-red-600 px-2 py-1 rounded font-semibold hover:bg-red-50 transition">✗</button>
+                        <button class="text-xs bg-red-50 border border-red-300 text-red-600 px-2 py-1 rounded-sm font-semibold hover:bg-red-50 transition">✗</button>
                     </form>
                 @elseif($c->statut == 'acceptee')
-                    <span class="text-xs bg-green-50 border border-green-300 text-green-700 px-2 py-1 rounded font-semibold">Accepté</span>
+                    <span class="text-xs bg-green-50 border border-green-300 text-green-700 px-2 py-1 rounded-sm font-semibold">Accepté</span>
                 @else
-                    <span class="text-xs bg-red-50 border border-red-300 text-red-600 px-2 py-1 rounded font-semibold">Refusé</span>
+                    <span class="text-xs bg-red-50 border border-red-300 text-red-600 px-2 py-1 rounded-sm font-semibold">Refusé</span>
                 @endif
-                <a href="{{ route('messages.show', $c->candidat) }}" class="text-xs bg-blue-50 border border-blue-300 text-blue-600 px-2 py-1 rounded font-semibold hover:bg-blue-50 transition">💬</a>
+                <a href="{{ route('messages.show', $c->candidat) }}" class="text-xs bg-blue-50 border border-blue-300 text-blue-600 px-2 py-1 rounded-sm font-semibold hover:bg-blue-50 transition">💬</a>
             </div>
         </div>
         @empty

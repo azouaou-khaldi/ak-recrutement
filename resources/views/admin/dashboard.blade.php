@@ -10,7 +10,7 @@
 {{-- STATS --}}
 <div class="grid grid-cols-4 gap-4 mb-6">
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-orange-950 flex items-center justify-center text-xl flex-shrink-0">👥</div>
+        <div class="w-11 h-11 rounded-xl bg-orange-950 flex items-center justify-center text-xl shrink-0">👥</div>
         <div>
             <p class="text-2xl font-extrabold">{{ $stats['users'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Utilisateurs</p>
@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-blue-950 flex items-center justify-center text-xl flex-shrink-0">💼</div>
+        <div class="w-11 h-11 rounded-xl bg-blue-950 flex items-center justify-center text-xl shrink-0">💼</div>
         <div>
             <p class="text-2xl font-extrabold">{{ $stats['offres'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Offres actives</p>
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-green-950 flex items-center justify-center text-xl flex-shrink-0">📄</div>
+        <div class="w-11 h-11 rounded-xl bg-green-950 flex items-center justify-center text-xl shrink-0">📄</div>
         <div>
             <p class="text-2xl font-extrabold">{{ $stats['candidatures'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Candidatures</p>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-purple-950 flex items-center justify-center text-xl flex-shrink-0">✉️</div>
+        <div class="w-11 h-11 rounded-xl bg-purple-950 flex items-center justify-center text-xl shrink-0">✉️</div>
         <div>
             <p class="text-2xl font-extrabold">{{ \App\Models\Contact::where('lu', false)->count() }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Messages non lus</p>
@@ -60,8 +60,8 @@
             @endforeach
         </div>
         <div class="flex gap-4 mt-3">
-            <div class="flex items-center gap-2 text-xs text-gray-500"><div class="w-2 h-2 bg-brand rounded-sm"></div> Inscriptions</div>
-            <div class="flex items-center gap-2 text-xs text-gray-500"><div class="w-2 h-2 bg-blue-500 rounded-sm"></div> Offres publiées</div>
+            <div class="flex items-center gap-2 text-xs text-gray-500"><div class="w-2 h-2 bg-brand rounded-xs"></div> Inscriptions</div>
+            <div class="flex items-center gap-2 text-xs text-gray-500"><div class="w-2 h-2 bg-blue-500 rounded-xs"></div> Offres publiées</div>
         </div>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5">
@@ -105,7 +105,7 @@
             @php $colors = ['admin'=>'bg-red-600','recruteur'=>'bg-blue-500','candidat'=>'bg-brand']; @endphp
             <div class="flex items-center justify-between py-2 border-b border-darkBorder last:border-0">
                 <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-full {{ $colors[$user->role] }} flex items-center justify-center text-xs font-bold flex-shrink-0">
+                    <div class="w-7 h-7 rounded-full {{ $colors[$user->role] }} flex items-center justify-center text-xs font-bold shrink-0">
                         {{ strtoupper(substr($user->name, 0, 2)) }}
                     </div>
                     <div>

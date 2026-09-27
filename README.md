@@ -6,9 +6,13 @@ Plateforme de recrutement développée avec Laravel — mise en relation entre c
 
 ```bash
 composer install
+npm install
 cp .env.example .env
 php artisan key:generate
+npm run build   # compile le CSS (Tailwind) et le JavaScript avec Vite
 ```
+
+Pendant le développement, `npm run dev` recompile automatiquement à chaque modification.
 
 Configure ta base de données dans `.env` (MySQL recommandé) :
 ```
@@ -55,6 +59,9 @@ Les comptes candidat et recruteur s'inscrivent via `/inscription`.
 - **Sécurité** : mots de passe forts obligatoires (8+ caractères, majuscule, chiffre, symbole), comptes suspendables, CSRF protection native Laravel
 - **Emails** : envoyés en file d'attente (`ShouldQueue`) — bienvenue, nouvelle candidature, changement de statut, message de contact
 - **Base de données** : MySQL avec migrations versionnées
+- **Front-end** : Tailwind CSS 4 et JavaScript compilés par Vite (`resources/css`, `resources/js`)
+  - `menu.js` : menu burger sur mobile (navigation publique et barres latérales des espaces connectés), accessible au clavier (`aria-expanded`, touche Échap)
+  - `recherche.js` : recherche d'offres en direct avec `fetch`, anti-rebond et annulation des requêtes obsolètes (`AbortController`) ; fonctionne aussi sans JavaScript (amélioration progressive)
 
 ## 📂 Structure principale
 

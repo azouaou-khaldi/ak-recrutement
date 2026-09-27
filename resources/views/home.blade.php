@@ -17,7 +17,7 @@
         <p class="text-white text-lg mb-10 drop-shadow-md">Des milliers d'offres dans tous les secteurs vous attendent.</p>
         <form action="{{ route('offres.index') }}" method="GET" class="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
             <input type="text" name="recherche" placeholder="🔍 Poste, compétence ou entreprise"
-                class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand placeholder-gray-400 shadow-sm">
+                class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400 shadow-xs">
             <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-6 py-3 rounded-lg transition">Rechercher</button>
         </form>
         <div class="flex justify-center gap-10 mt-10">

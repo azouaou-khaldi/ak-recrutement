@@ -15,24 +15,24 @@
             <div>
                 <label class="block font-semibold mb-1 text-gray-700 text-sm">Titre du poste</label>
                 <input type="text" name="titre" value="{{ old('titre', $offre->titre) }}" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Entreprise</label>
                     <input type="text" name="entreprise" value="{{ old('entreprise', $offre->entreprise) }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Lieu</label>
                     <input type="text" name="lieu" value="{{ old('lieu', $offre->lieu) }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Type de contrat</label>
-                    <select name="type_contrat" required class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">
+                    <select name="type_contrat" required class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
                         @foreach (['CDI','CDD','Stage','Alternance','Freelance'] as $type)
                             <option value="{{ $type }}" {{ old('type_contrat',$offre->type_contrat)==$type?'selected':'' }}>{{ $type }}</option>
                         @endforeach
@@ -41,18 +41,18 @@
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Salaire (optionnel)</label>
                     <input type="text" name="salaire" value="{{ old('salaire', $offre->salaire) }}"
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
                 </div>
             </div>
             <div>
                 <label class="block font-semibold mb-1 text-gray-700 text-sm">Description</label>
                 <textarea name="description" rows="5" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">{{ old('description', $offre->description) }}</textarea>
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">{{ old('description', $offre->description) }}</textarea>
             </div>
             <div>
                 <label class="block font-semibold mb-1 text-gray-700 text-sm">Compétences requises</label>
                 <textarea name="competences_requises" rows="3"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand">{{ old('competences_requises', $offre->competences_requises) }}</textarea>
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">{{ old('competences_requises', $offre->competences_requises) }}</textarea>
             </div>
             <label class="flex items-center gap-2 text-gray-700 text-sm">
                 <input type="checkbox" name="active" value="1" {{ $offre->active ? 'checked' : '' }} class="accent-brand">

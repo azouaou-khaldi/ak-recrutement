@@ -8,21 +8,21 @@
 {{-- STATS --}}
 <div class="grid grid-cols-3 gap-4 mb-6">
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
-        <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center text-xl flex-shrink-0">📄</div>
+        <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">📄</div>
         <div>
             <p class="text-2xl font-extrabold">{{ auth()->user()->candidatures()->count() }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Candidatures envoyées</p>
         </div>
     </div>
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
-        <div class="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center text-xl flex-shrink-0">✅</div>
+        <div class="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center text-xl shrink-0">✅</div>
         <div>
             <p class="text-2xl font-extrabold">{{ auth()->user()->candidatures()->where('statut','acceptee')->count() }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Candidatures acceptées</p>
         </div>
     </div>
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
-        <div class="w-11 h-11 rounded-xl bg-yellow-50 flex items-center justify-center text-xl flex-shrink-0">⏳</div>
+        <div class="w-11 h-11 rounded-xl bg-yellow-50 flex items-center justify-center text-xl shrink-0">⏳</div>
         <div>
             <p class="text-2xl font-extrabold">{{ auth()->user()->candidatures()->where('statut','en_attente')->count() }}</p>
             <p class="text-gray-500 text-xs mt-0.5">En attente</p>
@@ -45,7 +45,7 @@
             <p class="text-gray-500 text-xs">Complétez votre profil pour être visible par les recruteurs</p>
         </div>
     </div>
-    <a href="{{ route('candidat.profil.edit') }}" class="bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition flex-shrink-0">
+    <a href="{{ route('candidat.profil.edit') }}" class="bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition shrink-0">
         Compléter →
     </a>
 </div>

@@ -8,8 +8,8 @@
     <div class="flex gap-2">
         <form method="GET" class="flex gap-2">
             <input type="text" name="recherche" value="{{ request('recherche') }}" placeholder="Rechercher..."
-                class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand placeholder-gray-600">
-            <select name="role" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand">
+                class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600">
+            <select name="role" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
                 <option value="">Tous les rôles</option>
                 <option value="candidat" {{ request('role')=='candidat'?'selected':'' }}>Candidats</option>
                 <option value="recruteur" {{ request('role')=='recruteur'?'selected':'' }}>Recruteurs</option>
@@ -39,7 +39,7 @@
             <tr class="hover:bg-dark transition">
                 <td class="px-4 py-3">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full {{ $avatarColors[$user->role] }} flex items-center justify-center text-xs font-bold flex-shrink-0">
+                        <div class="w-8 h-8 rounded-full {{ $avatarColors[$user->role] }} flex items-center justify-center text-xs font-bold shrink-0">
                             {{ strtoupper(substr($user->name, 0, 2)) }}
                         </div>
                         <div>

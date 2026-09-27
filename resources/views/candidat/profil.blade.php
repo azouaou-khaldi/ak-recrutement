@@ -7,7 +7,7 @@
 
 {{-- HEADER PROFIL --}}
 <div class="bg-white border border-lightBorder rounded-xl p-6 flex items-center gap-5 mb-4 relative hover:border-brand transition">
-    <div class="w-20 h-20 rounded-full bg-brand flex items-center justify-center text-3xl font-extrabold flex-shrink-0">
+    <div class="w-20 h-20 rounded-full bg-brand flex items-center justify-center text-3xl font-extrabold shrink-0">
         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
     </div>
     <div class="flex-1">
@@ -44,14 +44,14 @@
     $pct = round(($remplis / count($champs)) * 100);
 @endphp
 <div class="bg-white border border-lightBorder rounded-xl p-4 flex items-center gap-4 mb-4">
-    <p class="text-sm text-gray-500 flex-shrink-0">Profil complété à <span class="text-brand font-bold">{{ $pct }}%</span></p>
+    <p class="text-sm text-gray-500 shrink-0">Profil complété à <span class="text-brand font-bold">{{ $pct }}%</span></p>
     <div class="flex-1 bg-gray-200 rounded-full h-1.5">
         <div class="bg-brand h-1.5 rounded-full transition-all" style="width: {{ $pct }}%"></div>
     </div>
     @if($pct < 100)
-        <p class="text-xs text-gray-600 flex-shrink-0">💡 Complétez votre profil pour être visible</p>
+        <p class="text-xs text-gray-600 shrink-0">💡 Complétez votre profil pour être visible</p>
     @else
-        <p class="text-xs text-green-700 flex-shrink-0">✓ Profil complet !</p>
+        <p class="text-xs text-green-700 shrink-0">✓ Profil complet !</p>
     @endif
 </div>
 

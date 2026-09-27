@@ -7,7 +7,7 @@
 
 {{-- HEADER --}}
 <div class="bg-white border border-lightBorder rounded-xl p-6 flex items-center gap-5 mb-4 relative hover:border-brand transition">
-    <div class="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-3xl font-extrabold flex-shrink-0">
+    <div class="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-3xl font-extrabold shrink-0">
         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
     </div>
     <div class="flex-1">

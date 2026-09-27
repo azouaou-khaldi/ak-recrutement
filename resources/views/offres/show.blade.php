@@ -21,7 +21,7 @@
                     <form method="POST" action="{{ route('candidatures.store', $offre) }}" class="space-y-3">
                         @csrf
                         <textarea name="message" rows="3" placeholder="Message au recruteur (optionnel)"
-                            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand placeholder-gray-400"></textarea>
+                            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"></textarea>
                         <button class="w-full bg-brand hover:bg-brandDark text-white font-bold py-3 rounded-lg transition">Postuler à cette offre</button>
                     </form>
                 @endif

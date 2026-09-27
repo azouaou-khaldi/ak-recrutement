@@ -23,6 +23,11 @@ class OffreController extends Controller
 
         $offres = $query->paginate(9);
 
+        // Recherche en direct (fetch JavaScript) : on renvoie uniquement la liste des résultats
+        if ($request->ajax()) {
+            return view('offres.partials.resultats', compact('offres'));
+        }
+
         return view('offres.index', compact('offres'));
     }
 

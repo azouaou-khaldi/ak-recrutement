@@ -6,7 +6,7 @@
 <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-extrabold">Gestion des <span class="text-brand">candidatures</span></h1>
     <form method="GET" class="flex gap-2">
-        <select name="statut" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand">
+        <select name="statut" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="en_attente" {{ request('statut')=='en_attente'?'selected':'' }}>En attente</option>
             <option value="acceptee" {{ request('statut')=='acceptee'?'selected':'' }}>Acceptées</option>
@@ -48,12 +48,12 @@
                 <td class="px-4 py-3">
                     <form method="POST" action="{{ route('candidatures.statut', $c) }}" class="flex gap-2">
                         @csrf @method('PATCH')
-                        <select name="statut" class="bg-dark border border-darkBorder text-white rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-brand">
+                        <select name="statut" class="bg-dark border border-darkBorder text-white rounded-lg px-2 py-1 text-xs focus:outline-hidden focus:border-brand">
                             <option value="en_attente" {{ $c->statut=='en_attente'?'selected':'' }}>En attente</option>
                             <option value="acceptee" {{ $c->statut=='acceptee'?'selected':'' }}>Acceptée</option>
                             <option value="refusee" {{ $c->statut=='refusee'?'selected':'' }}>Refusée</option>
                         </select>
-                        <button class="bg-brand hover:bg-brandDark text-white px-2 py-1 rounded text-xs font-semibold">OK</button>
+                        <button class="bg-brand hover:bg-brandDark text-white px-2 py-1 rounded-sm text-xs font-semibold">OK</button>
                     </form>
                 </td>
             </tr>

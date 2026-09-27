@@ -23,36 +23,36 @@
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Nom complet</label>
                 <input type="text" name="name" value="{{ old('name', auth()->user()->name) }}" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Email</label>
                 <input type="email" name="email" value="{{ old('email', auth()->user()->email) }}" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Téléphone</label>
                 <input type="text" name="telephone" value="{{ old('telephone', auth()->user()->telephone) }}"
                     placeholder="+33 6 00 00 00 00"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Ville</label>
                 <input type="text" name="ville" value="{{ old('ville', auth()->user()->ville) }}"
                     placeholder="Paris, France"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">LinkedIn</label>
                 <input type="text" name="linkedin" value="{{ old('linkedin', auth()->user()->linkedin) }}"
                     placeholder="linkedin.com/in/votre-profil"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Portfolio</label>
                 <input type="text" name="portfolio" value="{{ old('portfolio', auth()->user()->portfolio) }}"
                     placeholder="monportfolio.com"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">
             </div>
         </div>
     </div>
@@ -64,11 +64,11 @@
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Poste recherché</label>
                 <input type="text" name="titre_poste" value="{{ old('titre_poste', auth()->user()->titre_poste) }}"
                     placeholder="Développeur Full Stack"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Disponibilité</label>
-                <select name="disponibilite" class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                <select name="disponibilite" class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
                     <option value="">Sélectionner</option>
                     @foreach(['Immédiate', '1 mois', '2 mois', '3 mois', 'Plus de 3 mois'] as $d)
                         <option value="{{ $d }}" {{ old('disponibilite', auth()->user()->disponibilite) == $d ? 'selected' : '' }}>{{ $d }}</option>
@@ -77,7 +77,7 @@
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Expérience</label>
-                <select name="experience" class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                <select name="experience" class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
                     <option value="">Sélectionner</option>
                     @foreach(['Moins d\'1 an', '1 an', '2 ans', '3 ans', '4 ans', '5 ans', 'Plus de 5 ans'] as $e)
                         <option value="{{ $e }}" {{ old('experience', auth()->user()->experience) == $e ? 'selected' : '' }}>{{ $e }}</option>
@@ -88,7 +88,7 @@
         <div>
             <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">À propos</label>
             <textarea name="a_propos" rows="4" placeholder="Décrivez-vous en quelques lignes..."
-                class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">{{ old('a_propos', auth()->user()->a_propos) }}</textarea>
+                class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">{{ old('a_propos', auth()->user()->a_propos) }}</textarea>
         </div>
     </div>
 
@@ -97,7 +97,7 @@
         <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Compétences (séparées par des virgules)</label>
         <input type="text" name="competences" value="{{ old('competences', auth()->user()->competences) }}"
             placeholder="React, Node.js, PHP, Laravel, MySQL..."
-            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand placeholder-gray-400">
+            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand placeholder-gray-400">
         <p class="text-xs text-gray-600 mt-1">Exemple : React, Node.js, PHP, MySQL, Git</p>
     </div>
 

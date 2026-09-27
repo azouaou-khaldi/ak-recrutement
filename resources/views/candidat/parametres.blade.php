@@ -18,17 +18,17 @@
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Mot de passe actuel</label>
                 <input type="password" name="current_password" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Nouveau mot de passe</label>
                 <input type="password" name="password" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Confirmer le mot de passe</label>
                 <input type="password" name="password_confirmation" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition">
                 Changer le mot de passe

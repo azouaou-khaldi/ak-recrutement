@@ -8,7 +8,7 @@
              alt="Espace de travail" class="w-full h-full object-cover">
     </div>
     <div class="flex items-center justify-center px-6 py-16 bg-light">
-        <div class="bg-white border border-lightBorder shadow-sm rounded-2xl p-8 w-full max-w-md">
+        <div class="bg-white border border-lightBorder shadow-xs rounded-2xl p-8 w-full max-w-md">
             <h1 class="text-2xl font-extrabold text-center mb-1 text-gray-900">Connexion à <span class="text-brand">AK Recrutement</span></h1>
             <p class="text-gray-500 text-center mb-6 text-sm">Entrez vos identifiants pour accéder à votre compte</p>
 
@@ -21,13 +21,13 @@
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand placeholder-gray-400"
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"
                         placeholder="votre.email@exemple.com">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Mot de passe</label>
                     <input type="password" name="password" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:border-brand placeholder-gray-400"
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"
                         placeholder="••••••••">
                 </div>
                 <button  type="submit" class="w-full bg-brand hover:bg-brandDark active:scale-[0.98] text-white font-bold py-3 rounded-full transition-all duration-150 shadow-md hover:shadow-xl hover:-translate-y-0.5">

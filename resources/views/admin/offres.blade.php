@@ -7,8 +7,8 @@
     <h1 class="text-2xl font-extrabold">Gestion des <span class="text-brand">offres</span></h1>
     <form method="GET" class="flex gap-2">
         <input type="text" name="recherche" value="{{ request('recherche') }}" placeholder="Rechercher..."
-            class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand placeholder-gray-600">
-        <select name="statut" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand">
+            class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600">
+        <select name="statut" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="active" {{ request('statut')=='active'?'selected':'' }}>Actives</option>
             <option value="inactive" {{ request('statut')=='inactive'?'selected':'' }}>Inactives</option>

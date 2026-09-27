@@ -4,22 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin - AK Recrutement')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: '#f97316',
-                        brandDark: '#ea6c0a',
-                        dark: '#0d0d0d',
-                        darkCard: '#1a1a1a',
-                        darkBorder: '#2a2a2a',
-                    }
-                }
-            }
-        }
-    </script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .sidebar-scroll::-webkit-scrollbar { width: 4px; }
         .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -29,8 +14,9 @@
 <body class="bg-dark text-white" style="height:100vh;display:flex;flex-direction:column;overflow:hidden">
 
 {{-- NAVBAR --}}
-<nav class="bg-black border-b border-darkBorder px-6 h-14 flex items-center justify-between flex-shrink-0 z-10">
+<nav class="bg-black border-b border-darkBorder px-6 h-14 flex items-center justify-between shrink-0 z-10">
     <div class="flex items-center gap-3">
+        <x-burger controls="menu-lateral" class="-ml-2" />
         <a href="{{ route('home') }}" class="text-xl font-extrabold">
             AK <span class="text-brand">Recrutement</span>
         </a>
@@ -40,7 +26,7 @@
             <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-sm font-bold">
                 {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
             </div>
-            <div>
+            <div class="hidden sm:block">
                 <p class="text-sm font-semibold leading-none">{{ auth()->user()->name }}</p>
                 <p class="text-xs text-gray-500">Administrateur</p>
             </div>
@@ -50,8 +36,11 @@
 
 <div class="flex flex-1 overflow-hidden">
 
-{{-- SIDEBAR --}}
-<aside class="w-56 bg-black border-r border-darkBorder flex flex-col flex-shrink-0 sidebar-scroll overflow-y-auto">
+{{-- Fond sombre derrière le menu sur mobile --}}
+<div data-menu-overlay="menu-lateral" class="hidden fixed inset-0 top-14 z-20 bg-black/50 md:hidden"></div>
+
+{{-- SIDEBAR (menu coulissant sur mobile, fixe sur ordinateur) --}}
+<aside id="menu-lateral" data-menu-hidden-class="-translate-x-full" class="w-56 bg-black border-r border-darkBorder flex flex-col shrink-0 sidebar-scroll overflow-y-auto fixed top-14 bottom-0 left-0 z-30 -translate-x-full transition-transform duration-200 md:static md:translate-x-0">
 
     <div class="p-3 pt-4">
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Principal</p>
@@ -108,7 +97,7 @@
 </aside>
 
 {{-- CONTENT --}}
-<main class="flex-1 overflow-y-auto p-6">
+<main class="flex-1 overflow-y-auto p-4 md:p-6">
     @if (session('success'))
         <div class="bg-orange-950 border border-brand text-orange-200 px-4 py-3 rounded-lg mb-4 text-sm">{{ session('success') }}</div>
     @endif

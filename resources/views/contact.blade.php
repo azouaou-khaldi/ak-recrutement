@@ -26,23 +26,23 @@
                     <div>
                         <label class="block font-semibold mb-1 text-gray-700 text-sm">Nom complet</label>
                         <input type="text" name="nom" value="{{ old('nom') }}" required
-                            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="Votre nom">
+                            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="Votre nom">
                     </div>
                     <div>
                         <label class="block font-semibold mb-1 text-gray-700 text-sm">Email</label>
                         <input type="email" name="email" value="{{ old('email') }}" required
-                            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="votre.email@exemple.com">
+                            class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="votre.email@exemple.com">
                     </div>
                 </div>
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Sujet</label>
                     <input type="text" name="sujet" value="{{ old('sujet') }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="Objet de votre message">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="Objet de votre message">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Message</label>
                     <textarea name="message" rows="5" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="Votre message...">{{ old('message') }}</textarea>
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:ring-2 focus:ring-brand/20 focus:border-brand focus:shadow-md transition placeholder-gray-400" placeholder="Votre message...">{{ old('message') }}</textarea>
                 </div>
                 <button type="submit" class="w-full bg-brand hover:bg-brandDark active:scale-[0.98] text-white font-bold py-3.5 rounded-full transition-all duration-150 shadow-md hover:shadow-xl hover:-translate-y-0.5">
                     Envoyer le message

@@ -17,7 +17,7 @@
         <form method="POST" action="{{ route('messages.store', $user) }}" class="flex gap-2">
             @csrf
             <input type="text" name="contenu" required placeholder="Votre message..."
-                class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:border-brand placeholder-gray-400">
+                class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-2 focus:outline-hidden focus:border-brand placeholder-gray-400">
             <button class="bg-brand hover:bg-brandDark text-white px-5 py-2 rounded-lg font-semibold transition">Envoyer</button>
         </form>
     </div>

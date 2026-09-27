@@ -20,12 +20,12 @@
             <div>
                 <label class="block text-sm font-semibold text-gray-300 mb-1">Nom complet</label>
                 <input type="text" name="name" value="{{ old('name', auth()->user()->name) }}" required
-                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-300 mb-1">Email</label>
                 <input type="email" name="email" value="{{ old('email', auth()->user()->email) }}" required
-                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition">
                 Enregistrer
@@ -40,17 +40,17 @@
             <div>
                 <label class="block text-sm font-semibold text-gray-300 mb-1">Mot de passe actuel</label>
                 <input type="password" name="current_password" required
-                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-300 mb-1">Nouveau mot de passe</label>
                 <input type="password" name="password" required
-                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-300 mb-1">Confirmer le mot de passe</label>
                 <input type="password" name="password_confirmation" required
-                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-dark border border-darkBorder text-white rounded-lg px-4 py-2.5 text-sm focus:outline-hidden focus:border-brand">
             </div>
             <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition">
                 Changer le mot de passe
