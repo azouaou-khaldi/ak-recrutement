@@ -11,8 +11,8 @@
         <label for="recherche" class="sr-only">Rechercher une offre</label>
         <input type="search" id="recherche" name="recherche" value="{{ request('recherche') }}" autocomplete="off"
             placeholder="Rechercher un poste, une entreprise..."
-            class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400 shadow-xs">
-        <button class="bg-brand hover:bg-brandDark text-white px-5 py-3 rounded-lg font-semibold transition">Rechercher</button>
+            class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500 shadow-xs">
+        <button class="bg-brand hover:bg-brandDark text-white px-5 py-3 rounded-full font-semibold transition">Rechercher</button>
     </form>
 
     <div id="resultats-offres" aria-live="polite" class="transition-opacity duration-150">

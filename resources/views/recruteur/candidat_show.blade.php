@@ -14,23 +14,23 @@
             {{ mb_strtoupper(mb_substr($candidat->name, 0, 2)) }}
         </div>
         <p class="text-center font-bold text-lg">{{ $candidat->name }}</p>
-        <p class="text-center text-gray-500 text-sm">{{ $candidat->email }}</p>
+        <p class="text-center text-gray-600 text-sm">{{ $candidat->email }}</p>
         @if($candidat->telephone)
-            <p class="text-center text-gray-500 text-sm">{{ $candidat->telephone }}</p>
+            <p class="text-center text-gray-600 text-sm">{{ $candidat->telephone }}</p>
         @endif
 
         <div class="mt-5 space-y-3">
             @if($candidat->cv_path)
                 <a href="{{ route('cv.telecharger', $candidat) }}" target="_blank"
-                   class="block text-center bg-brand hover:bg-brandDark text-white font-semibold py-2.5 rounded-lg text-sm transition">
-                    📄 Télécharger le CV
+                   class="flex items-center justify-center gap-2 bg-brand hover:bg-brandDark text-white font-semibold py-2.5 rounded-lg text-sm transition">
+                    <x-icone nom="candidatures" class="size-4" /> Télécharger le CV
                 </a>
             @else
-                <p class="text-center text-gray-400 text-xs italic">Aucun CV fourni</p>
+                <p class="text-center text-gray-600 text-xs italic">Aucun CV fourni</p>
             @endif
             <a href="{{ route('messages.show', $candidat) }}"
-               class="block text-center border border-lightBorder text-gray-700 hover:border-brand hover:text-brand font-semibold py-2.5 rounded-lg text-sm transition">
-                💬 Envoyer un message
+               class="flex items-center justify-center gap-2 border border-lightBorder text-gray-700 hover:border-brand hover:text-brand font-semibold py-2.5 rounded-lg text-sm transition">
+                <x-icone nom="messages" class="size-4" /> Envoyer un message
             </a>
         </div>
     </div>
@@ -40,25 +40,25 @@
             <h2 class="font-bold mb-4 text-sm">Présentation</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Poste recherché</p>
-                    <p class="text-sm {{ $candidat->titre_poste ? 'text-gray-800' : 'text-gray-400 italic' }}">{{ $candidat->titre_poste ?? 'Non renseigné' }}</p>
+                    <p class="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-0.5">Poste recherché</p>
+                    <p class="text-sm {{ $candidat->titre_poste ? 'text-gray-800' : 'text-gray-600 italic' }}">{{ $candidat->titre_poste ?? 'Non renseigné' }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Ville</p>
-                    <p class="text-sm {{ $candidat->ville ? 'text-gray-800' : 'text-gray-400 italic' }}">{{ $candidat->ville ?? 'Non renseignée' }}</p>
+                    <p class="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-0.5">Ville</p>
+                    <p class="text-sm {{ $candidat->ville ? 'text-gray-800' : 'text-gray-600 italic' }}">{{ $candidat->ville ?? 'Non renseignée' }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Disponibilité</p>
-                    <p class="text-sm {{ $candidat->disponibilite ? 'text-green-700' : 'text-gray-400 italic' }}">{{ $candidat->disponibilite ?? 'Non renseignée' }}</p>
+                    <p class="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-0.5">Disponibilité</p>
+                    <p class="text-sm {{ $candidat->disponibilite ? 'text-green-700' : 'text-gray-600 italic' }}">{{ $candidat->disponibilite ?? 'Non renseignée' }}</p>
                 </div>
                 <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Expérience</p>
-                    <p class="text-sm {{ $candidat->experience ? 'text-gray-800' : 'text-gray-400 italic' }}">{{ $candidat->experience ?? 'Non renseignée' }}</p>
+                    <p class="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-0.5">Expérience</p>
+                    <p class="text-sm {{ $candidat->experience ? 'text-gray-800' : 'text-gray-600 italic' }}">{{ $candidat->experience ?? 'Non renseignée' }}</p>
                 </div>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-0.5">À propos</p>
-                <p class="text-sm leading-relaxed {{ $candidat->a_propos ? 'text-gray-700' : 'text-gray-400 italic' }}">{{ $candidat->a_propos ?? 'Aucune description.' }}</p>
+                <p class="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-0.5">À propos</p>
+                <p class="text-sm leading-relaxed {{ $candidat->a_propos ? 'text-gray-700' : 'text-gray-600 italic' }}">{{ $candidat->a_propos ?? 'Aucune description.' }}</p>
             </div>
         </div>
 
@@ -71,21 +71,21 @@
                     @endforeach
                 </div>
             @else
-                <p class="text-sm text-gray-400 italic">Aucune compétence renseignée.</p>
+                <p class="text-sm text-gray-600 italic">Aucune compétence renseignée.</p>
             @endif
         </div>
 
         <div class="bg-white border border-lightBorder rounded-xl p-5">
             <h2 class="font-bold mb-4 text-sm">Candidatures chez vous ({{ $candidatures->count() }})</h2>
             @php
-                $sColors = ['en_attente'=>'bg-yellow-50 text-yellow-700 border-yellow-300','acceptee'=>'bg-green-50 text-green-700 border-green-300','refusee'=>'bg-red-50 text-red-600 border-red-300'];
+                $sColors = ['en_attente'=>'bg-yellow-50 text-yellow-700 border-yellow-300','acceptee'=>'bg-green-50 text-green-700 border-green-300','refusee'=>'bg-red-50 text-red-700 border-red-300'];
                 $sLabels = ['en_attente'=>'En attente','acceptee'=>'Acceptée','refusee'=>'Refusée'];
             @endphp
             @foreach($candidatures as $c)
             <div class="flex justify-between items-center gap-3 py-2 border-b border-lightBorder last:border-0">
                 <div class="min-w-0">
                     <p class="text-sm font-semibold">{{ $c->offre->titre }}</p>
-                    <p class="text-xs text-gray-500">{{ $c->created_at->format('d/m/Y') }}</p>
+                    <p class="text-xs text-gray-600">{{ $c->created_at->format('d/m/Y') }}</p>
                 </div>
                 <span class="text-xs px-2 py-0.5 rounded-full border shrink-0 whitespace-nowrap font-semibold {{ $sColors[$c->statut] }}">{{ $sLabels[$c->statut] }}</span>
             </div>

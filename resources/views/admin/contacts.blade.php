@@ -8,8 +8,8 @@
 </div>
 
 @if($contacts->isEmpty())
-    <div class="bg-darkCard border border-darkBorder rounded-xl p-10 text-center text-gray-500">
-        <div class="text-4xl mb-3">✉️</div>
+    <div class="bg-darkCard border border-darkBorder rounded-xl p-10 text-center text-gray-400">
+        <x-icone nom="enveloppe" class="size-10 mx-auto mb-3 text-gray-400" />
         <p>Aucun message de contact.</p>
     </div>
 @else
@@ -26,7 +26,7 @@
                 <p class="font-bold truncate">{{ $contact->sujet }}</p>
             </div>
             <p class="text-gray-400 text-sm truncate">De : <span class="text-white">{{ $contact->nom }}</span></p>
-            <p class="text-gray-600 text-xs mt-2">
+            <p class="text-gray-400 text-xs mt-2">
                 {{ $contact->created_at->format('d/m/Y à H:i') }}
                 @if($contact->repondu_le)
                     · <span class="text-green-400">Répondu</span>
@@ -35,7 +35,7 @@
         </a>
         <form method="POST" action="{{ route('admin.contacts.delete', $contact) }}" onsubmit="return confirm('Supprimer ?')" class="shrink-0">
             @csrf @method('DELETE')
-            <button class="bg-red-950 border border-red-700 text-red-400 hover:bg-red-900 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+            <button class="bg-red-950 border border-red-700 text-red-400 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs font-semibold transition">
                 Supprimer
             </button>
         </form>

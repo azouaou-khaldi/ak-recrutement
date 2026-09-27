@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-6">
-    <a href="{{ route('admin.contacts') }}" class="text-gray-500 hover:text-brand text-sm whitespace-nowrap">← Retour</a>
+    <a href="{{ route('admin.contacts') }}" class="text-gray-400 hover:text-brand text-sm whitespace-nowrap">← Retour</a>
     <h1 class="text-2xl font-extrabold break-words min-w-0">{{ $contact->sujet }}</h1>
 </div>
 
@@ -18,7 +18,7 @@
                     <p class="font-bold">{{ $contact->nom }}</p>
                     <a href="mailto:{{ $contact->email }}" class="text-brand text-sm hover:underline">{{ $contact->email }}</a>
                 </div>
-                <p class="text-gray-500 text-xs shrink-0">{{ $contact->created_at->format('d/m/Y à H:i') }}</p>
+                <p class="text-gray-400 text-xs shrink-0">{{ $contact->created_at->format('d/m/Y à H:i') }}</p>
             </div>
             <p class="text-gray-300 text-sm leading-relaxed whitespace-pre-line">{{ $contact->message }}</p>
         </div>
@@ -37,15 +37,15 @@
             <label for="reponse" class="block font-bold text-sm mb-1">
                 {{ $contact->reponse ? 'Envoyer une nouvelle réponse' : 'Répondre' }}
             </label>
-            <p class="text-gray-500 text-xs mb-3">La réponse sera envoyée par e-mail à {{ $contact->email }}.</p>
+            <p class="text-gray-400 text-xs mb-3">La réponse sera envoyée par e-mail à {{ $contact->email }}.</p>
             <textarea id="reponse" name="reponse" rows="6" required maxlength="5000"
-                class="w-full bg-dark border {{ $errors->has('reponse') ? 'border-red-600' : 'border-darkBorder' }} text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600"
+                class="w-full bg-dark border {{ $errors->has('reponse') ? 'border-red-600' : 'border-darkBorder' }} text-white rounded-lg px-3 py-2 text-sm focus:border-brand placeholder-gray-500"
                 placeholder="Bonjour {{ $contact->nom }}, ...">{{ old('reponse') }}</textarea>
             @error('reponse')
                 <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
             @enderror
             <div class="flex justify-end mt-3">
-                <button class="bg-brand hover:bg-brandDark text-white px-5 py-2 rounded-lg text-sm font-semibold transition w-full sm:w-auto">
+                <button class="bg-brand hover:bg-brandDark text-white px-5 py-2 rounded-full text-sm font-semibold transition w-full sm:w-auto">
                     Envoyer
                 </button>
             </div>
@@ -56,8 +56,8 @@
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 h-fit">
         <h2 class="font-bold text-sm mb-4">Informations</h2>
         <div class="space-y-2 text-sm">
-            <div class="flex justify-between gap-3"><span class="text-gray-500">Statut</span><span class="text-green-400 font-semibold">Lu</span></div>
-            <div class="flex justify-between gap-3"><span class="text-gray-500">Réponse</span>
+            <div class="flex justify-between gap-3"><span class="text-gray-400">Statut</span><span class="text-green-400 font-semibold">Lu</span></div>
+            <div class="flex justify-between gap-3"><span class="text-gray-400">Réponse</span>
                 <span class="{{ $contact->repondu_le ? 'text-green-400' : 'text-yellow-400' }} font-semibold">{{ $contact->repondu_le ? 'Envoyée' : 'En attente' }}</span>
             </div>
         </div>

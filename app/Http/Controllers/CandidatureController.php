@@ -39,7 +39,8 @@ class CandidatureController extends Controller
 
     public function updateStatut(Request $request, Candidature $candidature): RedirectResponse
     {
-        if (auth()->id() !== $candidature->offre->user_id) {
+        // Le recruteur propriétaire de l'offre, ou l'admin (page « Gestion des candidatures »)
+        if (auth()->id() !== $candidature->offre->user_id && !auth()->user()->isAdmin()) {
             abort(403);
         }
 

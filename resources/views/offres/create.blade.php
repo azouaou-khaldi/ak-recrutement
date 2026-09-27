@@ -15,24 +15,24 @@
             <div>
                 <label class="block font-semibold mb-1 text-gray-700 text-sm">Titre du poste</label>
                 <input type="text" name="titre" value="{{ old('titre') }}" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400">
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500">
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Entreprise</label>
                     <input type="text" name="entreprise" value="{{ old('entreprise') }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Lieu</label>
                     <input type="text" name="lieu" value="{{ old('lieu') }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500">
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Type de contrat</label>
-                    <select name="type_contrat" required class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
+                    <select name="type_contrat" required class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand">
                         @foreach (['CDI','CDD','Stage','Alternance','Freelance'] as $type)
                             <option value="{{ $type }}" {{ old('type_contrat')==$type?'selected':'' }}>{{ $type }}</option>
                         @endforeach
@@ -41,18 +41,18 @@
                 <div>
                     <label class="block font-semibold mb-1 text-gray-700 text-sm">Salaire (optionnel)</label>
                     <input type="text" name="salaire" value="{{ old('salaire') }}" placeholder="Ex: 35 000€ - 40 000€"
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400">
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500">
                 </div>
             </div>
             <div>
                 <label class="block font-semibold mb-1 text-gray-700 text-sm">Description</label>
                 <textarea name="description" rows="5" required
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400">{{ old('description') }}</textarea>
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500">{{ old('description') }}</textarea>
             </div>
             <div>
                 <label class="block font-semibold mb-1 text-gray-700 text-sm">Compétences requises (optionnel)</label>
                 <textarea name="competences_requises" rows="3"
-                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400">{{ old('competences_requises') }}</textarea>
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500">{{ old('competences_requises') }}</textarea>
             </div>
             <button type="submit" class="w-full bg-brand hover:bg-brandDark text-white font-bold py-3 rounded-lg transition">Publier l'offre</button>
         </form>

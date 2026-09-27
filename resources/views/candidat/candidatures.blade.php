@@ -5,15 +5,15 @@
 
 <div class="flex items-center justify-between mb-5">
     <h1 class="text-2xl font-extrabold">Mes <span class="text-brand">candidatures</span></h1>
-    <a href="{{ route('offres.index') }}" class="bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+    <a href="{{ route('offres.index') }}" class="bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold transition">
         Parcourir les offres
     </a>
 </div>
 
 @if($candidatures->isEmpty())
     <div class="bg-white border border-lightBorder rounded-xl p-10 text-center">
-        <div class="text-4xl mb-3">📄</div>
-        <p class="text-gray-500">Vous n'avez postulé à aucune offre pour le moment.</p>
+        <x-icone nom="candidatures" class="size-10 mx-auto mb-3 text-gray-400" />
+        <p class="text-gray-600">Vous n'avez postulé à aucune offre pour le moment.</p>
         <a href="{{ route('offres.index') }}" class="inline-block mt-4 text-brand hover:underline text-sm font-semibold">Parcourir les offres →</a>
     </div>
 @else
@@ -23,7 +23,7 @@
             $sColors = [
                 'en_attente' => 'bg-yellow-50 text-yellow-700 border-yellow-300',
                 'acceptee'   => 'bg-green-50 text-green-700 border-green-300',
-                'refusee'    => 'bg-red-50 text-red-600 border-red-300',
+                'refusee'    => 'bg-red-50 text-red-700 border-red-300',
             ];
             $sLabels = ['en_attente' => 'En attente', 'acceptee' => 'Acceptée ✓', 'refusee' => 'Refusée'];
         @endphp
@@ -33,7 +33,7 @@
                     <span class="text-xs px-2 py-0.5 rounded-full border bg-orange-50 text-brand border-brand font-semibold">{{ $c->offre->type_contrat }}</span>
                 </div>
                 <h3 class="font-bold">{{ $c->offre->titre }}</h3>
-                <p class="text-gray-500 text-sm">{{ $c->offre->entreprise }} — {{ $c->offre->lieu }}</p>
+                <p class="text-gray-600 text-sm">{{ $c->offre->entreprise }} — {{ $c->offre->lieu }}</p>
                 @if($c->message)
                     <p class="text-gray-600 text-xs mt-1 italic">"{{ Str::limit($c->message, 80) }}"</p>
                 @endif

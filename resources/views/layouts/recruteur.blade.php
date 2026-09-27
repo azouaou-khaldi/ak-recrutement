@@ -11,18 +11,18 @@
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
     </style>
 </head>
-<body class="bg-light text-gray-900" style="--color-light: #f7f7f5">
+<body class="fond-clair bg-light text-gray-900" style="--color-light: #f7f7f5">
 
 {{-- NAVBAR --}}
 <nav class="bg-dark border-b border-darkBorder px-6 h-14 flex items-center justify-between shrink-0 z-10">
     <div class="flex items-center gap-2">
         <x-burger controls="menu-lateral" class="-ml-2" />
         <a href="{{ route('home') }}" class="text-xl font-extrabold">
-            <span class="text-white">AK</span> <span class="text-brand">Recrutement</span>
+            <span class="text-white">AK</span> <span class="text-brandVif">Recrutement</span>
         </a>
     </div>
     <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-sm font-bold text-white">
+        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold text-white">
             {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
         </div>
         <div class="hidden sm:block">
@@ -39,44 +39,20 @@
 
 {{-- SIDEBAR (menu coulissant sur mobile, fixe sur ordinateur) --}}
 <aside id="menu-lateral" data-menu-hidden-class="-translate-x-full" class="w-56 bg-dark border-r border-darkBorder flex flex-col shrink-0 sidebar-scroll overflow-y-auto fixed top-14 bottom-0 left-0 z-30 -translate-x-full transition-transform duration-200 md:static md:translate-x-0">
-    <div class="p-3 pt-4">
-        <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Mon espace</p>
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('dashboard') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="tableau-de-bord" /> Tableau de bord
-        </a>
-        <a href="{{ route('recruteur.offres') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.offres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-3"><x-icone nom="offres" /> Mes offres</span>
-            @if($compteurs['offres'] > 0)
-                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['offres'] }}</span>
-            @endif
-        </a>
-        <a href="{{ route('recruteur.candidatures') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.candidatures') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-3"><x-icone nom="candidatures" /> Candidatures</span>
-            @if($compteurs['candidaturesEnAttente'] > 0)
-                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['candidaturesEnAttente'] }}</span>
-            @endif
-        </a>
-        <a href="{{ route('messages.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('messages.*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="messages" /> Messages
-        </a>
-    </div>
-    <div class="p-3">
-        <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Mon profil</p>
-        <a href="{{ route('recruteur.profil') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.profil*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="profil" /> Mon profil
-        </a>
-        <a href="{{ route('recruteur.parametres') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.parametres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="parametres" /> Paramètres
-        </a>
-    </div>
-    <div class="mt-auto p-3 border-t border-darkBorder">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 w-full">
-                <x-icone nom="deconnexion" /> Déconnexion
-            </button>
-        </form>
-    </div>
+    <nav aria-label="Menu de l'espace recruteur" class="pt-2">
+        <x-lateral.section titre="Mon espace">
+            <x-lateral.lien :href="route('dashboard')" :actif="request()->routeIs('dashboard')" icone="tableau-de-bord">Tableau de bord</x-lateral.lien>
+            <x-lateral.lien :href="route('recruteur.offres')" :actif="request()->routeIs('recruteur.offres')" icone="offres" :badge="$compteurs['offres']" badge-label="offres publiées">Mes offres</x-lateral.lien>
+            <x-lateral.lien :href="route('recruteur.candidatures')" :actif="request()->routeIs('recruteur.candidatures', 'recruteur.candidat.show')" icone="candidatures" :badge="$compteurs['candidaturesEnAttente']" badge-label="candidatures en attente">Candidatures</x-lateral.lien>
+            <x-lateral.lien :href="route('messages.index')" :actif="request()->routeIs('messages.*')" icone="messages">Messages</x-lateral.lien>
+        </x-lateral.section>
+        <x-lateral.section titre="Mon profil">
+            <x-lateral.lien :href="route('recruteur.profil')" :actif="request()->routeIs('recruteur.profil*')" icone="profil">Mon profil</x-lateral.lien>
+            <x-lateral.lien :href="route('recruteur.parametres')" :actif="request()->routeIs('recruteur.parametres')" icone="parametres">Paramètres</x-lateral.lien>
+        </x-lateral.section>
+    </nav>
+
+    <x-lateral.deconnexion />
 </aside>
 
 {{-- CONTENT --}}

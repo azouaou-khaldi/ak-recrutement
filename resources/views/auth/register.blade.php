@@ -10,7 +10,7 @@
     <div class="flex items-center justify-center px-6 py-16 bg-light">
         <div class="bg-white border border-lightBorder shadow-xs rounded-2xl p-8 w-full max-w-md">
             <h1 class="text-2xl font-extrabold text-center mb-1 text-gray-900">Inscription à <span class="text-brand">AK Recrutement</span></h1>
-            <p class="text-gray-500 text-center mb-6 text-sm">Créez votre compte pour commencer</p>
+            <p class="text-gray-600 text-center mb-6 text-sm">Créez votre compte pour commencer</p>
 
             @if ($errors->any())
                 <div class="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm">
@@ -23,33 +23,33 @@
             <form method="POST" action="{{ route('register') }}" class="space-y-4">
                 @csrf
                 <div>
-                    <label class="block font-semibold mb-1 text-gray-700 text-sm">Nom complet</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"
+                    <label for="name" class="block font-semibold mb-1 text-gray-700 text-sm">Nom complet</label>
+                    <input type="text" id="name" name="name" autocomplete="name" value="{{ old('name') }}" required
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500"
                         placeholder="Jean Dupont">
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1 text-gray-700 text-sm">Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"
+                    <label for="email" class="block font-semibold mb-1 text-gray-700 text-sm">Email</label>
+                    <input type="email" id="email" name="email" autocomplete="email" value="{{ old('email') }}" required
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500"
                         placeholder="votre.email@exemple.com">
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1 text-gray-700 text-sm">Mot de passe</label>
-                    <input type="password" name="password" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"
+                    <label for="password" class="block font-semibold mb-1 text-gray-700 text-sm">Mot de passe</label>
+                    <input type="password" id="password" name="password" autocomplete="new-password" required
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500"
                         placeholder="••••••••">
-                    <p class="text-xs text-gray-500 mt-1">Min. 8 caractères, avec majuscule, minuscule, chiffre et symbole</p>
+                    <p class="text-xs text-gray-600 mt-1">Min. 8 caractères, avec majuscule, minuscule, chiffre et symbole</p>
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1 text-gray-700 text-sm">Confirmer le mot de passe</label>
-                    <input type="password" name="password_confirmation" required
-                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400"
+                    <label for="password_confirmation" class="block font-semibold mb-1 text-gray-700 text-sm">Confirmer le mot de passe</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password" required
+                        class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500"
                         placeholder="••••••••">
                 </div>
                 <div>
-                    <label class="block font-semibold mb-1 text-gray-700 text-sm">Type de compte</label>
-                    <select name="role" required class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand">
+                    <label for="role" class="block font-semibold mb-1 text-gray-700 text-sm">Type de compte</label>
+                    <select id="role" name="role" required class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand">
                         <option value="">Sélectionnez un type</option>
                         <option value="candidat" {{ old('role')=='candidat'?'selected':'' }}>Candidat</option>
                         <option value="recruteur" {{ old('role')=='recruteur'?'selected':'' }}>Recruteur</option>
@@ -59,7 +59,7 @@
                     S'inscrire
                 </button>
             </form>
-            <p class="text-center text-gray-500 mt-4 text-sm">
+            <p class="text-center text-gray-600 mt-4 text-sm">
                 Déjà un compte ? <a href="{{ route('login') }}" class="text-brand font-semibold hover:underline">Se connecter</a>
             </p>
         </div>

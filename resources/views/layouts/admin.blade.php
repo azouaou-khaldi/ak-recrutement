@@ -18,7 +18,7 @@
     <div class="flex items-center gap-3">
         <x-burger controls="menu-lateral" class="-ml-2" />
         <a href="{{ route('home') }}" class="text-xl font-extrabold">
-            AK <span class="text-brand">Recrutement</span>
+            AK <span class="text-brandVif">Recrutement</span>
         </a>
     </div>
     <div class="flex items-center gap-3">
@@ -28,7 +28,7 @@
             </div>
             <div class="hidden sm:block">
                 <p class="text-sm font-semibold leading-none">{{ auth()->user()->name }}</p>
-                <p class="text-xs text-gray-500">Administrateur</p>
+                <p class="text-xs text-gray-400">Administrateur</p>
             </div>
         </div>
     </div>
@@ -41,58 +41,25 @@
 
 {{-- SIDEBAR (menu coulissant sur mobile, fixe sur ordinateur) --}}
 <aside id="menu-lateral" data-menu-hidden-class="-translate-x-full" class="w-56 bg-black border-r border-darkBorder flex flex-col shrink-0 sidebar-scroll overflow-y-auto fixed top-14 bottom-0 left-0 z-30 -translate-x-full transition-transform duration-200 md:static md:translate-x-0">
+    <nav aria-label="Menu d'administration" class="pt-2">
+        <x-lateral.section titre="Principal">
+            <x-lateral.lien :href="route('admin.dashboard')" :actif="request()->routeIs('admin.dashboard')" icone="tableau-de-bord">Tableau de bord</x-lateral.lien>
+            <x-lateral.lien :href="route('admin.users')" :actif="request()->routeIs('admin.users*')" icone="utilisateurs" :badge="$compteurs['utilisateurs']" badge-label="utilisateurs">Utilisateurs</x-lateral.lien>
+            <x-lateral.lien :href="route('admin.offres')" :actif="request()->routeIs('admin.offres*')" icone="offres" :badge="$compteurs['offres']" badge-label="offres">Offres</x-lateral.lien>
+            <x-lateral.lien :href="route('admin.candidatures')" :actif="request()->routeIs('admin.candidatures')" icone="candidatures" :badge="$compteurs['candidatures']" badge-label="candidatures">Candidatures</x-lateral.lien>
+        </x-lateral.section>
+        <x-lateral.section titre="Communication">
+            <x-lateral.lien :href="route('admin.contacts')" :actif="request()->routeIs('admin.contacts*')" icone="enveloppe" :badge="$compteurs['contactsNonLus']" badge-label="messages non lus">Messages contact</x-lateral.lien>
+        </x-lateral.section>
+        <x-lateral.section titre="Analytique">
+            <x-lateral.lien :href="route('admin.stats')" :actif="request()->routeIs('admin.stats')" icone="statistiques">Statistiques</x-lateral.lien>
+        </x-lateral.section>
+        <x-lateral.section titre="Compte">
+            <x-lateral.lien :href="route('admin.parametres')" :actif="request()->routeIs('admin.parametres')" icone="parametres">Paramètres</x-lateral.lien>
+        </x-lateral.section>
+    </nav>
 
-    <div class="p-3 pt-4">
-        <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Principal</p>
-        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.dashboard') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="tableau-de-bord" /> Tableau de bord
-        </a>
-        <a href="{{ route('admin.users') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.users') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-3"><x-icone nom="utilisateurs" /> Utilisateurs</span>
-            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['utilisateurs'] }}</span>
-        </a>
-        <a href="{{ route('admin.offres') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.offres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-3"><x-icone nom="offres" /> Offres</span>
-            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['offres'] }}</span>
-        </a>
-        <a href="{{ route('admin.candidatures') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.candidatures') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-3"><x-icone nom="candidatures" /> Candidatures</span>
-            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['candidatures'] }}</span>
-        </a>
-    </div>
-
-    <div class="p-3">
-        <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Communication</p>
-        <a href="{{ route('admin.contacts') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.contacts*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <span class="flex items-center gap-3"><x-icone nom="enveloppe" /> Messages contact</span>
-            @if($compteurs['contactsNonLus'] > 0)
-                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['contactsNonLus'] }}</span>
-            @endif
-        </a>
-    </div>
-
-    <div class="p-3">
-        <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Analytique</p>
-        <a href="{{ route('admin.stats') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.stats') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="statistiques" /> Statistiques
-        </a>
-    </div>
-
-    <div class="p-3">
-        <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Compte</p>
-        <a href="{{ route('admin.parametres') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.parametres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
-            <x-icone nom="parametres" /> Paramètres
-        </a>
-    </div>
-
-    <div class="mt-auto p-3 border-t border-darkBorder">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-red-400 w-full">
-                <x-icone nom="deconnexion" /> Déconnexion
-            </button>
-        </form>
-    </div>
+    <x-lateral.deconnexion />
 </aside>
 
 {{-- CONTENT --}}

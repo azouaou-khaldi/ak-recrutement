@@ -12,7 +12,7 @@
         <div class="flex-1 w-full flex items-end">
             <div class="w-full rounded-t-sm {{ $couleurBarre }}" style="height: max(4px, {{ round($nb / $max * 100) }}%)"></div>
         </div>
-        <p class="text-xs text-gray-600">{{ $mois }}</p>
+        <p class="text-xs text-gray-400">{{ $mois }}</p>
     </div>
     @endforeach
 </div>

@@ -21,19 +21,19 @@
 <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 text-center">
         <p class="text-3xl font-extrabold text-brand">{{ $stats['total_users'] }}</p>
-        <p class="text-gray-500 text-sm mt-1">Total utilisateurs</p>
+        <p class="text-gray-400 text-sm mt-1">Total utilisateurs</p>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 text-center">
         <p class="text-3xl font-extrabold text-brand">{{ $stats['total_offres'] }}</p>
-        <p class="text-gray-500 text-sm mt-1">Total offres</p>
+        <p class="text-gray-400 text-sm mt-1">Total offres</p>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 text-center">
         <p class="text-3xl font-extrabold text-brand">{{ $stats['total_candidatures'] }}</p>
-        <p class="text-gray-500 text-sm mt-1">Total candidatures</p>
+        <p class="text-gray-400 text-sm mt-1">Total candidatures</p>
     </div>
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 text-center">
         <p class="text-3xl font-extrabold text-brand">{{ $stats['taux_acceptation'] }}%</p>
-        <p class="text-gray-500 text-sm mt-1">Taux d'acceptation</p>
+        <p class="text-gray-400 text-sm mt-1">Taux d'acceptation</p>
     </div>
 </div>
 

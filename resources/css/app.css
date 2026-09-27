@@ -7,6 +7,8 @@
 @theme {
     --color-brand: #f97316;
     --color-brandDark: #ea6c0a;
+    /* Orange vif, toujours identique : titres, logo, décorations */
+    --color-brandVif: #f97316;
     --color-light: #e5e5e0;
     --color-lightCard: #ffffff;
     --color-lightBorder: #ececE6;
@@ -30,7 +32,7 @@
 
     input::placeholder,
     textarea::placeholder {
-        color: var(--color-gray-400);
+        color: var(--color-gray-500);
     }
 
     button:not(:disabled),
@@ -41,5 +43,28 @@
     /* Les mots très longs (e-mails, URL) passent à la ligne au lieu de sortir des cartes sur mobile */
     main {
         overflow-wrap: break-word;
+    }
+}
+
+/*
+ * Accessibilité — contraste (WCAG AA : 4,5:1 pour le texte courant).
+ * L'orange vif #f97316 n'atteint que 2,8:1 sur fond clair. Sur les pages à fond clair
+ * (classe .fond-clair sur <body>), text-brand / bg-brand passent à un orange foncé (5,2:1).
+ * Les titres gardent l'orange vif, comme l'espace admin (fond sombre, 6,9:1).
+ */
+@layer base {
+    .fond-clair {
+        --color-brand: #c2410c;
+        --color-brandDark: #9a3412;
+    }
+
+    .fond-clair :is(h1, h2, h3) {
+        --color-brand: var(--color-brandVif);
+    }
+
+    /* Accessibilité — focus clavier visible sur tous les éléments interactifs */
+    :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+        outline: 2px solid var(--color-brandVif);
+        outline-offset: 2px;
     }
 }

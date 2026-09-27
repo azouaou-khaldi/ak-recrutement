@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function dashboard(): View
     {
         $activite_mois = $this->sixDerniersMois()->mapWithKeys(fn($date) => [
-            $date->format('M') => [
+            ucfirst($date->translatedFormat('M')) => [
                 'inscriptions' => $this->compterSurMois(User::query(), $date),
                 'offres'       => $this->compterSurMois(Offre::query(), $date),
             ]
@@ -169,11 +169,11 @@ class AdminController extends Controller
         $mois = $this->sixDerniersMois();
 
         $inscriptions_mois = $mois->mapWithKeys(fn($date) => [
-            $date->format('M') => $this->compterSurMois(User::query(), $date)
+            ucfirst($date->translatedFormat('M')) => $this->compterSurMois(User::query(), $date)
         ]);
 
         $offres_mois = $mois->mapWithKeys(fn($date) => [
-            $date->format('M') => $this->compterSurMois(Offre::query(), $date)
+            ucfirst($date->translatedFormat('M')) => $this->compterSurMois(Offre::query(), $date)
         ]);
 
         $total_candidatures = Candidature::count();

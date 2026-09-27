@@ -16,15 +16,19 @@
         </h1>
         <p class="text-white text-lg mb-10 drop-shadow-md">Des offres dans tous les secteurs vous attendent.</p>
         <form action="{{ route('offres.index') }}" method="GET" class="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
-            <input type="text" name="recherche" placeholder="🔍 Poste, compétence ou entreprise"
-                class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400 shadow-xs">
-            <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-6 py-3 rounded-lg transition">Rechercher</button>
+            <label for="recherche-accueil" class="sr-only">Rechercher une offre</label>
+            <div class="relative flex-1 min-w-0">
+                <x-icone nom="loupe" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+                <input type="search" id="recherche-accueil" name="recherche" placeholder="Poste, compétence ou entreprise"
+                    class="w-full bg-white border border-lightBorder text-gray-900 rounded-lg pl-10 pr-4 py-3 focus:border-brand placeholder-gray-500 shadow-xs">
+            </div>
+            <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-6 py-3 rounded-full transition">Rechercher</button>
         </form>
         <div class="flex justify-center gap-10 mt-10">
             {{-- Chiffres réels calculés dans PageController@home --}}
-            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">{{ number_format($stats['offres'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['offres'] > 1 ? 'Offres actives' : 'Offre active' }}</p></div>
-            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">{{ number_format($stats['entreprises'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['entreprises'] > 1 ? 'Entreprises' : 'Entreprise' }}</p></div>
-            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">{{ number_format($stats['candidats'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['candidats'] > 1 ? 'Candidats inscrits' : 'Candidat inscrit' }}</p></div>
+            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brandVif">{{ number_format($stats['offres'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['offres'] > 1 ? 'Offres actives' : 'Offre active' }}</p></div>
+            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brandVif">{{ number_format($stats['entreprises'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['entreprises'] > 1 ? 'Entreprises' : 'Entreprise' }}</p></div>
+            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brandVif">{{ number_format($stats['candidats'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['candidats'] > 1 ? 'Candidats inscrits' : 'Candidat inscrit' }}</p></div>
         </div>
     </div>
 </section>
@@ -118,13 +122,14 @@
 <section class="relative px-6 py-20 text-center overflow-hidden">
     <div class="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop"
-             alt="Bureau moderne" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-brand/60"></div>
+             alt="" class="w-full h-full object-cover">
+        {{-- Filtre orange très foncé : le texte blanc reste lisible quelle que soit la photo --}}
+        <div class="absolute inset-0 bg-orange-950/85"></div>
     </div>
     <div class="relative">
-        <h2 class="text-3xl font-extrabold text-white mb-3">Prêt à commencer avec <span class="text-dark">AK Recrutement</span> ?</h2>
+        <h2 class="text-3xl font-extrabold text-white mb-3">Prêt à commencer avec <span class="text-brandVif">AK Recrutement</span> ?</h2>
         <p class="text-orange-50 mb-8">Rejoignez notre communauté et découvrez de nouvelles opportunités</p>
-        <a href="{{ route('register') }}" class="inline-block bg-dark text-brand font-bold px-8 py-3 rounded-lg hover:bg-darkCard transition">S'inscrire gratuitement</a>
+        <a href="{{ route('register') }}" class="inline-block bg-dark text-brandVif font-bold px-8 py-3 rounded-full hover:bg-darkCard transition">S'inscrire gratuitement</a>
     </div>
 </section>
 
