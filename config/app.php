@@ -17,6 +17,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Adresse de l'administrateur
+    |--------------------------------------------------------------------------
+    |
+    | Reçoit les messages du formulaire de contact, sert d'identifiant au
+    | compte admin créé par AdminSeeder et s'affiche dans le pied de page.
+    |
+    */
+
+    'admin_email' => env('ADMIN_EMAIL', env('MAIL_FROM_ADDRESS')),
+
+    // Mot de passe du compte admin créé par AdminSeeder (généré aléatoirement si vide)
+    'admin_password' => env('ADMIN_PASSWORD'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

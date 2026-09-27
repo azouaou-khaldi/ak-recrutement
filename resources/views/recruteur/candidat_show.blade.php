@@ -11,7 +11,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
     <div class="bg-white border border-lightBorder rounded-xl p-6">
         <div class="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-2xl font-bold text-white mx-auto mb-4">
-            {{ strtoupper(substr($candidat->name, 0, 2)) }}
+            {{ mb_strtoupper(mb_substr($candidat->name, 0, 2)) }}
         </div>
         <p class="text-center font-bold text-lg">{{ $candidat->name }}</p>
         <p class="text-center text-gray-500 text-sm">{{ $candidat->email }}</p>

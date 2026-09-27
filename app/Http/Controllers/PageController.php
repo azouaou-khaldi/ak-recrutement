@@ -42,7 +42,7 @@ class PageController extends Controller
         $contact = Contact::create($request->only('nom', 'email', 'sujet', 'message'));
 
         // Email à l'admin
-        Mail::to('azouaoukhaldi07@gmail.com')->send(new ContactAdminMail($contact));
+        Mail::to(config('app.admin_email'))->send(new ContactAdminMail($contact));
 
         return back()->with('success', 'Votre message a bien été envoyé.');
     }
@@ -59,6 +59,6 @@ class PageController extends Controller
             return app(RecruteurController::class)->dashboard();
         }
 
-        return view('dashboard.candidat');
+        return app(CandidatController::class)->dashboard();
     }
 }

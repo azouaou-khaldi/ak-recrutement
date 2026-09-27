@@ -36,7 +36,7 @@
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
         <div class="w-11 h-11 rounded-xl bg-purple-950 flex items-center justify-center text-xl shrink-0">✉️</div>
         <div>
-            <p class="text-2xl font-extrabold">{{ \App\Models\Contact::where('lu', false)->count() }}</p>
+            <p class="text-2xl font-extrabold">{{ $stats['contacts_non_lus'] }}</p>
             <p class="text-gray-500 text-xs mt-0.5">Messages non lus</p>
         </div>
     </div>
@@ -108,7 +108,7 @@
             <div class="flex items-center justify-between gap-3 py-2 border-b border-darkBorder last:border-0">
                 <div class="flex items-center gap-2 min-w-0">
                     <div class="w-7 h-7 rounded-full {{ $colors[$user->role] }} flex items-center justify-center text-xs font-bold shrink-0">
-                        {{ strtoupper(substr($user->name, 0, 2)) }}
+                        {{ mb_strtoupper(mb_substr($user->name, 0, 2)) }}
                     </div>
                     <div class="min-w-0">
                         <p class="text-xs font-semibold truncate">{{ $user->name }}</p>

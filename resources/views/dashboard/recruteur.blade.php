@@ -49,13 +49,13 @@
         @forelse($dernieres_candidatures as $c)
         @php
             $avatarColors = ['A'=>'bg-brand','B'=>'bg-purple-500','C'=>'bg-green-500','D'=>'bg-blue-500','E'=>'bg-red-500','F'=>'bg-yellow-500','G'=>'bg-pink-500','H'=>'bg-indigo-500'];
-            $initial = strtoupper(substr($c->candidat->name, 0, 1));
+            $initial = mb_strtoupper(mb_substr($c->candidat->name, 0, 1));
             $color = $avatarColors[$initial] ?? 'bg-brand';
         @endphp
         <div class="flex items-center justify-between gap-3 py-2.5 border-b border-lightBorder last:border-0">
             <div class="flex items-center gap-2 min-w-0">
                 <div class="w-8 h-8 rounded-full {{ $color }} flex items-center justify-center text-xs font-bold shrink-0">
-                    {{ strtoupper(substr($c->candidat->name, 0, 2)) }}
+                    {{ mb_strtoupper(mb_substr($c->candidat->name, 0, 2)) }}
                 </div>
                 <div class="min-w-0">
                     <p class="text-sm font-semibold break-words">{{ $c->candidat->name }}</p>

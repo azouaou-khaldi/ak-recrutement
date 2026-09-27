@@ -8,7 +8,7 @@
     <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
         <select name="offre" class="w-full sm:w-auto max-w-full min-w-0 bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Toutes les offres</option>
-            @foreach(auth()->user()->offres as $o)
+            @foreach($mesOffres as $o)
                 <option value="{{ $o->id }}" {{ request('offre') == $o->id ? 'selected' : '' }}>{{ $o->titre }}</option>
             @endforeach
         </select>
@@ -50,7 +50,7 @@
                     <td class="px-4 py-3">
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-xs font-bold shrink-0">
-                                {{ strtoupper(substr($c->candidat->name, 0, 2)) }}
+                                {{ mb_strtoupper(mb_substr($c->candidat->name, 0, 2)) }}
                             </div>
                             <div>
                                 <p class="font-semibold">{{ $c->candidat->name }}</p>

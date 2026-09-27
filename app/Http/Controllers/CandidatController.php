@@ -1,20 +1,37 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\GereCompte;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CandidatController extends Controller
 {
+    use GereCompte;
+
+    public function dashboard(): View
+    {
+        $candidat = auth()->user();
+
+        $stats = [
+            'envoyees'   => $candidat->candidatures()->count(),
+            'acceptees'  => $candidat->candidatures()->where('statut', 'acceptee')->count(),
+            'en_attente' => $candidat->candidatures()->where('statut', 'en_attente')->count(),
+        ];
+
+        $dernieres_candidatures = $candidat->candidatures()->with('offre')->latest()->take(5)->get();
+        $pourcentageProfil = $candidat->pourcentageProfil();
+
+        return view('dashboard.candidat', compact('stats', 'dernieres_candidatures', 'pourcentageProfil'));
+    }
+
     public function profil(): View
     {
-        return view('candidat.profil');
+        return view('candidat.profil', ['pourcentageProfil' => auth()->user()->pourcentageProfil()]);
     }
 
     public function profilEdit(): View
@@ -113,28 +130,5 @@ class CandidatController extends Controller
     public function parametres(): View
     {
         return view('candidat.parametres');
-    }
-
-    public function updatePassword(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'current_password' => 'required',
-            'password'         => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
-        ]);
-
-        if (!Hash::check($request->current_password, auth()->user()->password)) {
-            return back()->withErrors(['current_password' => 'Mot de passe actuel incorrect.']);
-        }
-
-        auth()->user()->update(['password' => Hash::make($request->password)]);
-        return back()->with('success', 'Mot de passe mis à jour.');
-    }
-
-    public function deleteCompte(): RedirectResponse
-    {
-        $user = auth()->user();
-        auth()->logout();
-        $user->delete();
-        return redirect()->route('home')->with('success', 'Votre compte a été supprimé.');
     }
 }

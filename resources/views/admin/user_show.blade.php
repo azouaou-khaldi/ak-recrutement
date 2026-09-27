@@ -12,7 +12,7 @@
     <div class="bg-darkCard border border-darkBorder rounded-xl p-6">
         @php $avatarColors = ['admin'=>'bg-red-600','recruteur'=>'bg-blue-500','candidat'=>'bg-brand']; @endphp
         <div class="w-16 h-16 rounded-full {{ $avatarColors[$user->role] }} flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-            {{ strtoupper(substr($user->name, 0, 2)) }}
+            {{ mb_strtoupper(mb_substr($user->name, 0, 2)) }}
         </div>
         <p class="text-center font-bold text-lg">{{ $user->name }}</p>
         <p class="text-center text-gray-500 text-sm">{{ $user->email }}</p>

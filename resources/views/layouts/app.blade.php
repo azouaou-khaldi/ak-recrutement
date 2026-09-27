@@ -87,7 +87,7 @@
             </div>
             <div>
                 <p class="font-bold text-brand mb-2">Contact</p>
-                <p class="text-gray-200">📧 azouaoukhaldi07@gmail.com</p>
+                <p class="text-gray-200">📧 {{ config('app.admin_email') }}</p>
                 <p class="text-gray-200">📞 +33 7 73 45 10 85</p>
                 <p class="text-gray-200">📍 11-13 rue d'Estrées, 75007 Paris</p>
             </div>

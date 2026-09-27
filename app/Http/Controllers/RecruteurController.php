@@ -1,15 +1,16 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\GereCompte;
 use App\Models\Candidature;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class RecruteurController extends Controller
 {
+    use GereCompte;
+
     public function dashboard(): View
     {
         $stats = [
@@ -48,7 +49,10 @@ class RecruteurController extends Controller
         }
 
         $candidatures = $query->paginate(15);
-        return view('recruteur.candidatures', compact('candidatures'));
+        // Liste des offres pour le filtre
+        $mesOffres = auth()->user()->offres()->orderBy('titre')->get(['id', 'titre']);
+
+        return view('recruteur.candidatures', compact('candidatures', 'mesOffres'));
     }
 
     public function voirCandidat(\App\Models\User $candidat): View
@@ -72,7 +76,7 @@ class RecruteurController extends Controller
 
     public function profil(): View
     {
-        return view('recruteur.profil');
+        return view('recruteur.profil', ['nbOffres' => auth()->user()->offres()->count()]);
     }
 
     public function profilEdit(): View
@@ -104,28 +108,5 @@ class RecruteurController extends Controller
     public function parametres(): View
     {
         return view('recruteur.parametres');
-    }
-
-    public function updatePassword(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'current_password' => 'required',
-            'password'         => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
-        ]);
-
-        if (!Hash::check($request->current_password, auth()->user()->password)) {
-            return back()->withErrors(['current_password' => 'Mot de passe actuel incorrect.']);
-        }
-
-        auth()->user()->update(['password' => Hash::make($request->password)]);
-        return back()->with('success', 'Mot de passe mis à jour.');
-    }
-
-    public function deleteCompte(): RedirectResponse
-    {
-        $user = auth()->user();
-        auth()->logout();
-        $user->delete();
-        return redirect()->route('home')->with('success', 'Votre compte a été supprimé.');
     }
 }

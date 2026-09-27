@@ -23,7 +23,7 @@
     </div>
     <div class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-sm font-bold text-white">
-            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+            {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
         </div>
         <div class="hidden sm:block">
             <p class="text-sm font-semibold leading-none text-white">{{ auth()->user()->name }}</p>

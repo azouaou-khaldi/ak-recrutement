@@ -41,7 +41,7 @@
                 <td class="px-4 py-3">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full {{ $avatarColors[$user->role] }} flex items-center justify-center text-xs font-bold shrink-0">
-                            {{ strtoupper(substr($user->name, 0, 2)) }}
+                            {{ mb_strtoupper(mb_substr($user->name, 0, 2)) }}
                         </div>
                         <div>
                             <p class="font-semibold">{{ $user->name }}</p>

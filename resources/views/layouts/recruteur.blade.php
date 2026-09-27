@@ -23,7 +23,7 @@
     </div>
     <div class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-sm font-bold text-white">
-            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+            {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
         </div>
         <div class="hidden sm:block">
             <p class="text-sm font-semibold leading-none text-white">{{ auth()->user()->name }}</p>
@@ -46,16 +46,14 @@
         </a>
         <a href="{{ route('recruteur.offres') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.offres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="offres" /> Mes offres</span>
-            @php $nbOffres = auth()->user()->offres()->count(); @endphp
-            @if($nbOffres > 0)
-                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $nbOffres }}</span>
+            @if($compteurs['offres'] > 0)
+                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['offres'] }}</span>
             @endif
         </a>
         <a href="{{ route('recruteur.candidatures') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('recruteur.candidatures') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="candidatures" /> Candidatures</span>
-            @php $nbCandidatures = \App\Models\Candidature::whereHas('offre', fn($q) => $q->where('user_id', auth()->id()))->where('statut','en_attente')->count(); @endphp
-            @if($nbCandidatures > 0)
-                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $nbCandidatures }}</span>
+            @if($compteurs['candidaturesEnAttente'] > 0)
+                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['candidaturesEnAttente'] }}</span>
             @endif
         </a>
         <a href="{{ route('messages.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('messages.*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">

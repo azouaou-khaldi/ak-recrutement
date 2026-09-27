@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\GereCompte;
 use App\Mail\ReponseContactMail;
 use App\Models\Candidature;
 use App\Models\Contact;
@@ -8,13 +9,13 @@ use App\Models\Offre;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class AdminController extends Controller
 {
+    use GereCompte;
+
     // ─── DASHBOARD ───────────────────────────────────────────
     public function dashboard(): View
     {
@@ -34,6 +35,7 @@ class AdminController extends Controller
             'users_mois'        => $this->compterSurMois(User::query(), now()),
             'offres_semaine'    => Offre::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count(),
             'candidatures_mois' => $this->compterSurMois(Candidature::query(), now()),
+            'contacts_non_lus'  => Contact::where('lu', false)->count(),
             'activite_mois'     => $activite_mois,
         ];
 
@@ -203,21 +205,6 @@ class AdminController extends Controller
         ]);
         auth()->user()->update($request->only('name', 'email'));
         return back()->with('success', 'Informations mises à jour.');
-    }
-
-    public function updatePassword(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'current_password' => 'required',
-            'password'         => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
-        ]);
-
-        if (!Hash::check($request->current_password, auth()->user()->password)) {
-            return back()->withErrors(['current_password' => 'Mot de passe actuel incorrect.']);
-        }
-
-        auth()->user()->update(['password' => Hash::make($request->password)]);
-        return back()->with('success', 'Mot de passe mis à jour.');
     }
 
     // ─── OUTILS ──────────────────────────────────────────────

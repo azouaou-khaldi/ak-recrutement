@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\MessageController;
@@ -26,6 +28,12 @@ Route::middleware('guest')->group(function () {
     Route::get('/connexion', [AuthenticatedSessionController::class, 'create'])->name('login');
     // Limite à 5 tentatives par minute (protection contre la force brute)
     Route::post('/connexion', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:5,1');
+
+    // Mot de passe oublié (le nom password.reset est celui attendu par Laravel)
+    Route::get('/mot-de-passe-oublie', [PasswordResetLinkController::class, 'create'])->name('password.request');
+    Route::post('/mot-de-passe-oublie', [PasswordResetLinkController::class, 'store'])->middleware('throttle:5,1')->name('password.email');
+    Route::get('/reinitialiser-mot-de-passe/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+    Route::post('/reinitialiser-mot-de-passe', [NewPasswordController::class, 'store'])->middleware('throttle:5,1')->name('password.store');
 });
 
 Route::middleware('auth')->group(function () {

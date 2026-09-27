@@ -8,7 +8,7 @@
 {{-- HEADER --}}
 <div class="bg-white border border-lightBorder rounded-xl p-6 flex flex-col sm:flex-row sm:items-center gap-5 mb-4 relative hover:border-brand transition">
     <div class="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-3xl font-extrabold shrink-0">
-        {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+        {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
     </div>
     <div class="flex-1 min-w-0 sm:pr-28">
         <h2 class="text-xl font-extrabold">{{ auth()->user()->name }}</h2>
@@ -21,7 +21,7 @@
         @endif
         <div class="flex flex-wrap gap-2 mt-3">
             <span class="text-xs px-3 py-1 rounded-full border bg-blue-50 text-blue-600 border-blue-300 font-semibold">Recruteur</span>
-            <span class="text-xs px-3 py-1 rounded-full border bg-orange-50 text-brand border-brand font-semibold">{{ auth()->user()->offres()->count() }} offres publiées</span>
+            <span class="text-xs px-3 py-1 rounded-full border bg-orange-50 text-brand border-brand font-semibold">{{ $nbOffres }} {{ $nbOffres > 1 ? 'offres publiées' : 'offre publiée' }}</span>
         </div>
     </div>
     <a href="{{ route('recruteur.profil.edit') }}" class="self-start sm:absolute sm:top-5 sm:right-5 bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition">

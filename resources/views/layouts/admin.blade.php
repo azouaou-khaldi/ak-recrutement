@@ -24,7 +24,7 @@
     <div class="flex items-center gap-3">
         <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-sm font-bold">
-                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+                {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
             </div>
             <div class="hidden sm:block">
                 <p class="text-sm font-semibold leading-none">{{ auth()->user()->name }}</p>
@@ -49,15 +49,15 @@
         </a>
         <a href="{{ route('admin.users') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.users') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="utilisateurs" /> Utilisateurs</span>
-            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ \App\Models\User::count() }}</span>
+            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['utilisateurs'] }}</span>
         </a>
         <a href="{{ route('admin.offres') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.offres') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="offres" /> Offres</span>
-            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ \App\Models\Offre::count() }}</span>
+            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['offres'] }}</span>
         </a>
         <a href="{{ route('admin.candidatures') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.candidatures') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="candidatures" /> Candidatures</span>
-            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ \App\Models\Candidature::count() }}</span>
+            <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['candidatures'] }}</span>
         </a>
     </div>
 
@@ -65,9 +65,8 @@
         <p class="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Communication</p>
         <a href="{{ route('admin.contacts') }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm mb-1 {{ request()->routeIs('admin.contacts*') ? 'bg-orange-950 text-brand font-semibold' : 'text-gray-400 hover:text-white hover:bg-darkCard' }}">
             <span class="flex items-center gap-3"><x-icone nom="enveloppe" /> Messages contact</span>
-            @php $contacts = \App\Models\Contact::where('lu', false)->count(); @endphp
-            @if($contacts > 0)
-                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $contacts }}</span>
+            @if($compteurs['contactsNonLus'] > 0)
+                <span class="bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ $compteurs['contactsNonLus'] }}</span>
             @endif
         </a>
     </div>

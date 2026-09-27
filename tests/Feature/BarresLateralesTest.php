@@ -35,4 +35,15 @@ class BarresLateralesTest extends TestCase
             $this->assertStringNotContainsString($emoji, $barre);
         }
     }
+
+    public function test_les_initiales_accentuees_s_affichent_correctement(): void
+    {
+        // substr() coupait le « é » (2 octets en UTF-8) et affichait « L� » : on utilise mb_substr()
+        $lea = User::factory()->create(['role' => 'candidat', 'name' => 'Léa Dubois']);
+
+        $html = $this->actingAs($lea)->get('/tableau-de-bord')->assertOk()->getContent();
+
+        $this->assertStringContainsString('LÉ', $html);
+        $this->assertTrue(mb_check_encoding($html, 'UTF-8'), 'La page contient un caractère UTF-8 coupé');
+    }
 }

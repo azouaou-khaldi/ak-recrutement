@@ -8,7 +8,7 @@
 {{-- HEADER PROFIL --}}
 <div class="bg-white border border-lightBorder rounded-xl p-6 flex flex-col sm:flex-row sm:items-center gap-5 mb-4 relative hover:border-brand transition">
     <div class="w-20 h-20 rounded-full bg-brand flex items-center justify-center text-3xl font-extrabold shrink-0">
-        {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+        {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
     </div>
     <div class="flex-1 min-w-0 sm:pr-28">
         <h2 class="text-xl font-extrabold">{{ auth()->user()->name }}</h2>
@@ -38,17 +38,12 @@
 </div>
 
 {{-- BARRE DE COMPLÉTION --}}
-@php
-    $champs = ['titre_poste', 'telephone', 'ville', 'disponibilite', 'experience', 'a_propos', 'competences'];
-    $remplis = collect($champs)->filter(fn($c) => auth()->user()->$c)->count();
-    $pct = round(($remplis / count($champs)) * 100);
-@endphp
 <div class="bg-white border border-lightBorder rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
-    <p class="text-sm text-gray-500 shrink-0">Profil complété à <span class="text-brand font-bold">{{ $pct }}%</span></p>
+    <p class="text-sm text-gray-500 shrink-0">Profil complété à <span class="text-brand font-bold">{{ $pourcentageProfil }}%</span></p>
     <div class="w-full sm:flex-1 bg-gray-200 rounded-full h-1.5">
-        <div class="bg-brand h-1.5 rounded-full transition-all" style="width: {{ $pct }}%"></div>
+        <div class="bg-brand h-1.5 rounded-full transition-all" style="width: {{ $pourcentageProfil }}%"></div>
     </div>
-    @if($pct < 100)
+    @if($pourcentageProfil < 100)
         <p class="text-xs text-gray-600 shrink-0">💡 Complétez votre profil pour être visible</p>
     @else
         <p class="text-xs text-green-700 shrink-0">✓ Profil complet !</p>
