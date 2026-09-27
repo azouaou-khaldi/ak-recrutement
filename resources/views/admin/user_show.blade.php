@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-6">
-    <a href="{{ route('admin.users') }}" class="text-gray-400 hover:text-brand text-sm whitespace-nowrap">← Retour</a>
+    <a href="{{ route('admin.users') }}" class="inline-flex items-center min-h-11 sm:min-h-0 text-gray-400 hover:text-brand text-sm whitespace-nowrap">← Retour</a>
     <h1 class="text-2xl font-extrabold">Profil de <span class="text-brand">{{ $user->name }}</span></h1>
 </div>
 
@@ -27,14 +27,12 @@
         <div class="mt-6 space-y-2">
             <form method="POST" action="{{ route('admin.users.toggle', $user) }}">
                 @csrf @method('PATCH')
-                <button class="w-full py-2 rounded-lg text-sm font-semibold border {{ $user->suspendu ? 'border-green-700 text-green-400 hover:bg-green-950' : 'border-yellow-700 text-yellow-400 hover:bg-yellow-950' }} transition">
+                <button class="w-full min-h-11 py-2 rounded-full text-sm font-semibold border {{ $user->suspendu ? 'border-green-700 text-green-400 hover:bg-green-950' : 'border-yellow-700 text-yellow-400 hover:bg-yellow-950' }} transition">
                     {{ $user->suspendu ? 'Réactiver le compte' : 'Suspendre le compte' }}
                 </button>
             </form>
-            <form method="POST" action="{{ route('admin.users.delete', $user) }}" onsubmit="return confirm('Supprimer définitivement ?')">
-                @csrf @method('DELETE')
-                <button class="w-full py-2 rounded-lg text-sm font-semibold border border-red-700 text-red-400 hover:bg-red-950 transition">Supprimer le compte</button>
-            </form>
+            <x-admin.suppression-utilisateur :user="$user" libelle="Supprimer le compte"
+                classe-bouton="w-full min-h-11 py-2 rounded-full text-sm font-semibold border border-red-700 text-red-400 hover:bg-red-950 transition" />
         </div>
         @endif
     </div>

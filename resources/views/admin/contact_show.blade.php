@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-6">
-    <a href="{{ route('admin.contacts') }}" class="text-gray-400 hover:text-brand text-sm whitespace-nowrap">← Retour</a>
+    <a href="{{ route('admin.contacts') }}" class="inline-flex items-center min-h-11 sm:min-h-0 text-gray-400 hover:text-brand text-sm whitespace-nowrap">← Retour</a>
     <h1 class="text-2xl font-extrabold break-words min-w-0">{{ $contact->sujet }}</h1>
 </div>
 
@@ -45,7 +45,7 @@
                 <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
             @enderror
             <div class="flex justify-end mt-3">
-                <button class="bg-brand hover:bg-brandDark text-white px-5 py-2 rounded-full text-sm font-semibold transition w-full sm:w-auto">
+                <button class="min-h-11 sm:min-h-0 bg-brand hover:bg-brandDark text-white px-5 py-2 rounded-full text-sm font-semibold transition w-full sm:w-auto">
                     Envoyer
                 </button>
             </div>

@@ -9,37 +9,17 @@
 
 {{-- STATS --}}
 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-    <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-orange-950 flex items-center justify-center shrink-0"><x-icone nom="utilisateurs" class="size-6 text-orange-400" /></div>
-        <div>
-            <p class="text-2xl font-extrabold">{{ $stats['users'] }}</p>
-            <p class="text-gray-400 text-xs mt-0.5">Utilisateurs</p>
-            <p class="text-green-400 text-xs mt-1">↑ +{{ $stats['users_mois'] }} ce mois</p>
-        </div>
-    </div>
-    <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-blue-950 flex items-center justify-center shrink-0"><x-icone nom="offres" class="size-6 text-blue-400" /></div>
-        <div>
-            <p class="text-2xl font-extrabold">{{ $stats['offres'] }}</p>
-            <p class="text-gray-400 text-xs mt-0.5">Offres actives</p>
-            <p class="text-green-400 text-xs mt-1">↑ +{{ $stats['offres_semaine'] }} cette semaine</p>
-        </div>
-    </div>
-    <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-green-950 flex items-center justify-center shrink-0"><x-icone nom="candidatures" class="size-6 text-green-400" /></div>
-        <div>
-            <p class="text-2xl font-extrabold">{{ $stats['candidatures'] }}</p>
-            <p class="text-gray-400 text-xs mt-0.5">Candidatures</p>
-            <p class="text-green-400 text-xs mt-1">↑ +{{ $stats['candidatures_mois'] }} ce mois</p>
-        </div>
-    </div>
-    <div class="bg-darkCard border border-darkBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition cursor-pointer">
-        <div class="w-11 h-11 rounded-xl bg-purple-950 flex items-center justify-center shrink-0"><x-icone nom="enveloppe" class="size-6 text-purple-400" /></div>
-        <div>
-            <p class="text-2xl font-extrabold">{{ $stats['contacts_non_lus'] }}</p>
-            <p class="text-gray-400 text-xs mt-0.5">Messages non lus</p>
-        </div>
-    </div>
+    <x-admin.carte-stat :href="route('admin.users')" icone="utilisateurs" fond="bg-orange-950" couleur="text-orange-400"
+        :valeur="$stats['users']" libelle="Utilisateurs"
+        :evolution="$stats['users_mois']" periode="ce mois" texte-vide="Aucune inscription ce mois" />
+    <x-admin.carte-stat :href="route('admin.offres')" icone="offres" fond="bg-blue-950" couleur="text-blue-400"
+        :valeur="$stats['offres']" libelle="Offres actives"
+        :evolution="$stats['offres_semaine']" periode="cette semaine" texte-vide="Aucune nouvelle offre cette semaine" />
+    <x-admin.carte-stat :href="route('admin.candidatures')" icone="candidatures" fond="bg-green-950" couleur="text-green-400"
+        :valeur="$stats['candidatures']" libelle="Candidatures"
+        :evolution="$stats['candidatures_mois']" periode="ce mois" texte-vide="Aucune candidature ce mois" />
+    <x-admin.carte-stat :href="route('admin.contacts')" icone="enveloppe" fond="bg-purple-950" couleur="text-purple-400"
+        :valeur="$stats['contacts_non_lus']" libelle="Messages non lus" />
 </div>
 
 {{-- GRAPHIQUE + DONUT --}}
@@ -50,12 +30,19 @@
         </div>
         {{-- Hauteurs proportionnelles au mois le plus actif : la plus haute barre fait 100 % du cadre --}}
         @php $maxActivite = max(1, collect($stats['activite_mois'])->flatten()->max()); @endphp
-        <div class="flex items-end gap-1 sm:gap-3 h-28">
+        {{-- Chaque barre affiche sa valeur au-dessus (lisible sans survol, y compris sur mobile et au lecteur d'écran) --}}
+        <div class="flex items-end gap-1 sm:gap-3 h-40">
             @foreach($stats['activite_mois'] as $mois => $data)
-            <div class="flex flex-col items-center gap-1 flex-1">
-                <div class="flex items-end gap-1 h-24">
-                    <div class="w-3 rounded-t-sm bg-brand" style="height: max(4px, {{ round($data['inscriptions'] / $maxActivite * 100) }}%)" title="{{ $data['inscriptions'] }} inscription(s)"></div>
-                    <div class="w-3 rounded-t-sm bg-blue-500" style="height: max(4px, {{ round($data['offres'] / $maxActivite * 100) }}%)" title="{{ $data['offres'] }} offre(s)"></div>
+            <div class="flex flex-col items-center gap-1 flex-1 h-full min-w-0">
+                <div class="flex items-end justify-center gap-1 flex-1 w-full">
+                    @foreach([['inscriptions', 'bg-brand', 'Inscriptions'], ['offres', 'bg-blue-500', 'Offres publiées']] as [$cle, $couleur, $serie])
+                    <div class="flex flex-col items-center justify-end h-full w-5">
+                        <span class="text-[11px] font-semibold text-gray-200 leading-none mb-1" data-valeur-barre>
+                            <span class="sr-only">{{ $serie }} en {{ $mois }} : </span>{{ $data[$cle] }}
+                        </span>
+                        <div class="w-3 rounded-t-sm {{ $couleur }}" style="height: max(4px, calc((100% - 16px) * {{ round($data[$cle] / $maxActivite, 3) }}))" aria-hidden="true"></div>
+                    </div>
+                    @endforeach
                 </div>
                 <p class="text-xs text-gray-400">{{ $mois }}</p>
             </div>
@@ -71,26 +58,35 @@
         <div class="flex flex-col items-center gap-4">
             <div class="relative w-28 h-28">
                 @php
+                    // Les trois rôles : la somme des parts correspond bien au total affiché au centre
                     $total = $stats['users'] ?: 1;
-                    $pctCandidat = round(($stats['candidats'] / $total) * 100);
-                    $pctRecruteur = round(($stats['recruteurs'] / $total) * 100);
+                    $parts = [
+                        ['Candidats', $stats['candidats'], '#f97316', 'bg-brand'],
+                        ['Recruteurs', $stats['recruteurs'], '#3b82f6', 'bg-blue-500'],
+                        ['Administrateurs', $stats['admins'], '#dc2626', 'bg-red-600'],
+                    ];
+                    $debut = 0;
                 @endphp
-                <svg viewBox="0 0 36 36" class="w-28 h-28 -rotate-90">
+                <svg viewBox="0 0 36 36" class="w-28 h-28 -rotate-90" aria-hidden="true">
                     <circle cx="18" cy="18" r="15.9" fill="none" stroke="#2a2a2a" stroke-width="3"/>
-                    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f97316" stroke-width="3"
-                        stroke-dasharray="{{ $pctCandidat }} {{ 100 - $pctCandidat }}" stroke-linecap="round"/>
-                    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3"
-                        stroke-dasharray="{{ $pctRecruteur }} {{ 100 - $pctRecruteur }}"
-                        stroke-dashoffset="{{ -$pctCandidat }}" stroke-linecap="round"/>
+                    @foreach($parts as [$libelle, $nombre, $couleurTrait])
+                        @php $pct = $nombre / $total * 100; @endphp
+                        @if($nombre > 0)
+                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="{{ $couleurTrait }}" stroke-width="3"
+                                stroke-dasharray="{{ round($pct, 2) }} {{ round(100 - $pct, 2) }}" stroke-dashoffset="{{ round(-$debut, 2) }}"/>
+                        @endif
+                        @php $debut += $pct; @endphp
+                    @endforeach
                 </svg>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <span class="text-lg font-extrabold">{{ $stats['users'] }}</span>
                 </div>
             </div>
-            <div class="w-full space-y-2">
-                <div class="flex items-center gap-2 text-xs text-gray-400"><div class="w-2 h-2 bg-brand rounded-full"></div> Candidats — {{ $stats['candidats'] }}</div>
-                <div class="flex items-center gap-2 text-xs text-gray-400"><div class="w-2 h-2 bg-blue-500 rounded-full"></div> Recruteurs — {{ $stats['recruteurs'] }}</div>
-            </div>
+            <ul class="w-full space-y-2">
+                @foreach($parts as [$libelle, $nombre, $couleurTrait, $pastille])
+                    <li class="flex items-center gap-2 text-xs text-gray-300"><span class="w-2 h-2 {{ $pastille }} rounded-full" aria-hidden="true"></span> {{ $libelle }} — {{ $nombre }}</li>
+                @endforeach
+            </ul>
         </div>
     </div>
 </div>
@@ -100,7 +96,7 @@
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5">
         <div class="flex justify-between items-center mb-4">
             <h2 class="font-bold text-sm">Derniers inscrits</h2>
-            <a href="{{ route('admin.users') }}" class="text-xs text-brand hover:underline bg-orange-950 border border-brand px-2 py-1 rounded-full">Voir tout</a>
+            <a href="{{ route('admin.users') }}" class="inline-flex items-center justify-center min-h-11 sm:min-h-0 text-xs text-brand hover:underline bg-orange-950 border border-brand px-2 py-1 rounded-full">Voir tout</a>
         </div>
         <div class="space-y-1">
             @foreach($derniers_users as $user)
@@ -125,7 +121,7 @@
     <div class="bg-darkCard border border-darkBorder rounded-xl p-5">
         <div class="flex justify-between items-center mb-4">
             <h2 class="font-bold text-sm">Offres récentes</h2>
-            <a href="{{ route('admin.offres') }}" class="text-xs text-brand hover:underline bg-orange-950 border border-brand px-2 py-1 rounded-full">Voir tout</a>
+            <a href="{{ route('admin.offres') }}" class="inline-flex items-center justify-center min-h-11 sm:min-h-0 text-xs text-brand hover:underline bg-orange-950 border border-brand px-2 py-1 rounded-full">Voir tout</a>
         </div>
         <div class="space-y-1">
             @foreach($dernieres_offres as $offre)

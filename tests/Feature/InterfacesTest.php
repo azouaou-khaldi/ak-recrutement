@@ -29,7 +29,7 @@ class InterfacesTest extends TestCase
         $admin = User::factory()->create(['role' => 'admin']);
         $moisAnglais = ['Jan', 'Feb', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        foreach (['/admin', '/admin/statistiques'] as $page) {
+        foreach (['/admin'] as $page) {
             $html = $this->actingAs($admin)->get($page)->assertOk()->getContent();
 
             $this->assertStringContainsString('>' . ucfirst(now()->translatedFormat('M')) . '<', $html);

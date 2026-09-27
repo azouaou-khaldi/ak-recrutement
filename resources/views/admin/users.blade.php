@@ -8,13 +8,13 @@
     <div>
         <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
             <input type="text" name="recherche" value="{{ request('recherche') }}" placeholder="Rechercher..."
-                class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand placeholder-gray-500">
-            <select name="role" class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand">
+                class="min-h-11 sm:min-h-0 w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand placeholder-gray-500">
+            <select name="role" class="min-h-11 sm:min-h-0 w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand">
                 <option value="">Tous les rôles</option>
                 <option value="candidat" {{ request('role')=='candidat'?'selected':'' }}>Candidats</option>
                 <option value="recruteur" {{ request('role')=='recruteur'?'selected':'' }}>Recruteurs</option>
             </select>
-            <button class="bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold">Filtrer</button>
+            <button class="inline-flex items-center justify-center min-h-11 sm:min-h-0 bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold">Filtrer</button>
         </form>
     </div>
 </div>
@@ -62,18 +62,17 @@
                 <td class="px-4 py-3 text-gray-400 text-xs">{{ $user->created_at->format('d/m/Y') }}</td>
                 <td class="px-4 py-3">
                     @if(!$user->isAdmin())
-                    <div class="flex gap-3">
-                        <a href="{{ route('admin.users.show', $user) }}" class="text-brand text-xs font-semibold hover:underline">Voir</a>
+                    {{-- Boutons de 44 px de haut sur mobile (taille tactile recommandée), compacts sur ordinateur --}}
+                    <div class="flex gap-2 whitespace-nowrap">
+                        <a href="{{ route('admin.users.show', $user) }}" class="inline-flex items-center min-h-11 sm:min-h-8 px-3 rounded-full border border-darkBorder text-brand text-xs font-semibold hover:border-brand transition">Voir</a>
                         <form method="POST" action="{{ route('admin.users.toggle', $user) }}">
                             @csrf @method('PATCH')
-                            <button class="text-xs font-semibold hover:underline {{ $user->suspendu ? 'text-green-400' : 'text-yellow-400' }}">
+                            <button class="inline-flex items-center min-h-11 sm:min-h-8 px-3 rounded-full border border-darkBorder text-xs font-semibold transition {{ $user->suspendu ? 'text-green-400 hover:border-green-700' : 'text-yellow-400 hover:border-yellow-700' }}">
                                 {{ $user->suspendu ? 'Réactiver' : 'Suspendre' }}
                             </button>
                         </form>
-                        <form method="POST" action="{{ route('admin.users.delete', $user) }}" onsubmit="return confirm('Supprimer cet utilisateur ?')">
-                            @csrf @method('DELETE')
-                            <button class="text-red-400 text-xs font-semibold hover:underline">Supprimer</button>
-                        </form>
+                        <x-admin.suppression-utilisateur :user="$user"
+                            classe-bouton="inline-flex items-center min-h-11 sm:min-h-8 px-3 rounded-full border border-darkBorder text-red-400 text-xs font-semibold hover:border-red-700 transition" />
                     </div>
                     @else
                         <span class="text-gray-400 text-xs">—</span>

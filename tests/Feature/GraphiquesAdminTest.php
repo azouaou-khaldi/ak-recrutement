@@ -15,14 +15,25 @@ class GraphiquesAdminTest extends TestCase
         $admin = User::factory()->create(['role' => 'admin']);
         User::factory()->count(60)->create(['role' => 'candidat']);
 
-        foreach (['/admin', '/admin/statistiques'] as $page) {
-            $html = $this->actingAs($admin)->get($page)->assertOk()->getContent();
+        $html = $this->actingAs($admin)->get('/admin')->assertOk()->getContent();
 
-            preg_match_all('/height: max\(4px, (\d+)%\)/', $html, $hauteurs);
+        // Hauteur de chaque barre = part du mois le plus actif (entre 0 et 1)
+        preg_match_all('/calc\(\(100% - 16px\) \* ([\d.]+)\)/', $html, $parts);
 
-            $this->assertNotEmpty($hauteurs[1], "Aucune barre trouvée sur $page");
-            // Le mois le plus actif fait exactement 100 %, aucune barre ne dépasse
-            $this->assertSame(100, max(array_map('intval', $hauteurs[1])), $page);
-        }
+        $this->assertNotEmpty($parts[1], 'Aucune barre trouvée');
+        $this->assertEquals(1, max(array_map('floatval', $parts[1])), 'Le mois le plus actif doit remplir le cadre');
+        $this->assertLessThanOrEqual(1, max(array_map('floatval', $parts[1])));
+    }
+
+    public function test_les_valeurs_sont_affichees_au_dessus_des_barres(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        User::factory()->count(7)->create(['role' => 'candidat']);
+
+        $html = $this->actingAs($admin)->get('/admin')->assertOk()->getContent();
+
+        // 6 mois × 2 séries = 12 valeurs visibles, dont les 8 inscriptions du mois en cours
+        $this->assertSame(12, substr_count($html, 'data-valeur-barre'));
+        $this->assertMatchesRegularExpression('/Inscriptions en ' . preg_quote(ucfirst(now()->translatedFormat('M')), '/') . ' : <\/span>8\s*</', $html);
     }
 }

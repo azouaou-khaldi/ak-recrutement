@@ -35,7 +35,7 @@
         </a>
         <form method="POST" action="{{ route('admin.contacts.delete', $contact) }}" onsubmit="return confirm('Supprimer ?')" class="shrink-0">
             @csrf @method('DELETE')
-            <button class="bg-red-950 border border-red-700 text-red-400 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs font-semibold transition">
+            <button class="inline-flex items-center justify-center min-h-11 sm:min-h-0 bg-red-950 border border-red-700 text-red-400 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs font-semibold transition">
                 Supprimer
             </button>
         </form>

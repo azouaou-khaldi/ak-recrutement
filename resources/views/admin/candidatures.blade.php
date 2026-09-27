@@ -6,13 +6,13 @@
 <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between mb-6">
     <h1 class="text-2xl font-extrabold">Gestion des <span class="text-brand">candidatures</span></h1>
     <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
-        <select name="statut" class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand">
+        <select name="statut" class="min-h-11 sm:min-h-0 w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="en_attente" {{ request('statut')=='en_attente'?'selected':'' }}>En attente</option>
             <option value="acceptee" {{ request('statut')=='acceptee'?'selected':'' }}>Acceptées</option>
             <option value="refusee" {{ request('statut')=='refusee'?'selected':'' }}>Refusées</option>
         </select>
-        <button class="bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold">Filtrer</button>
+        <button class="inline-flex items-center justify-center min-h-11 sm:min-h-0 bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold">Filtrer</button>
     </form>
 </div>
 
@@ -54,7 +54,7 @@
                             <option value="acceptee" {{ $c->statut=='acceptee'?'selected':'' }}>Acceptée</option>
                             <option value="refusee" {{ $c->statut=='refusee'?'selected':'' }}>Refusée</option>
                         </select>
-                        <button class="bg-brand hover:bg-brandDark text-white px-2 py-1 rounded-full text-xs font-semibold">OK</button>
+                        <button class="inline-flex items-center justify-center min-h-11 sm:min-h-0 bg-brand hover:bg-brandDark text-white px-2 py-1 rounded-full text-xs font-semibold">OK</button>
                     </form>
                 </td>
             </tr>

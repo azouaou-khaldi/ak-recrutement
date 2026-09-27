@@ -30,6 +30,7 @@ class AdminController extends Controller
             'users'             => User::count(),
             'candidats'         => User::where('role', 'candidat')->count(),
             'recruteurs'        => User::where('role', 'recruteur')->count(),
+            'admins'            => User::where('role', 'admin')->count(),
             'offres'            => Offre::where('active', true)->count(),
             'candidatures'      => Candidature::count(),
             'users_mois'        => $this->compterSurMois(User::query(), now()),
@@ -48,7 +49,8 @@ class AdminController extends Controller
     // ─── UTILISATEURS ────────────────────────────────────────
     public function users(Request $request): View
     {
-        $query = User::latest();
+        // Compteurs affichés dans la popup de suppression (chargés en une requête, pas une par ligne)
+        $query = User::latest()->withCount(['offres', 'candidatures', 'candidaturesRecues', 'messagesEnvoyes', 'messagesRecus']);
         if ($request->filled('recherche')) {
             $query->where(fn($q) => $q->where('name', 'like', '%'.$request->recherche.'%')
                                       ->orWhere('email', 'like', '%'.$request->recherche.'%'));
@@ -62,7 +64,8 @@ class AdminController extends Controller
 
     public function showUser(User $user): View
     {
-        $user->load('offres.candidatures', 'candidatures.offre');
+        $user->load('offres.candidatures', 'candidatures.offre')
+             ->loadCount(['offres', 'candidatures', 'candidaturesRecues', 'messagesEnvoyes', 'messagesRecus']);
         return view('admin.user_show', compact('user'));
     }
 
@@ -161,34 +164,6 @@ class AdminController extends Controller
         $contact->delete();
         // Retour à la liste (et non back() : la page de détail n'existe plus)
         return redirect()->route('admin.contacts')->with('success', 'Message supprimé.');
-    }
-
-    // ─── STATISTIQUES ────────────────────────────────────────
-    public function stats(): View
-    {
-        $mois = $this->sixDerniersMois();
-
-        $inscriptions_mois = $mois->mapWithKeys(fn($date) => [
-            ucfirst($date->translatedFormat('M')) => $this->compterSurMois(User::query(), $date)
-        ]);
-
-        $offres_mois = $mois->mapWithKeys(fn($date) => [
-            ucfirst($date->translatedFormat('M')) => $this->compterSurMois(Offre::query(), $date)
-        ]);
-
-        $total_candidatures = Candidature::count();
-        $acceptees = Candidature::where('statut', 'acceptee')->count();
-
-        $stats = [
-            'inscriptions_mois'   => $inscriptions_mois,
-            'offres_mois'         => $offres_mois,
-            'total_users'         => User::count(),
-            'total_offres'        => Offre::count(),
-            'total_candidatures'  => $total_candidatures,
-            'taux_acceptation'    => $total_candidatures > 0 ? round(($acceptees / $total_candidatures) * 100) : 0,
-        ];
-
-        return view('admin.stats', compact('stats'));
     }
 
     // ─── PARAMÈTRES ──────────────────────────────────────────

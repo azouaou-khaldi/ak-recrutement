@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -58,4 +59,19 @@ class User extends Authenticatable
     public function candidatures() { return $this->hasMany(Candidature::class); }
     public function messagesEnvoyes() { return $this->hasMany(Message::class, 'sender_id'); }
     public function messagesRecus() { return $this->hasMany(Message::class, 'receiver_id'); }
+
+    /** Candidatures reçues sur les offres d'un recruteur */
+    public function candidaturesRecues() { return $this->hasManyThrough(Candidature::class, Offre::class); }
+
+    protected static function booted(): void
+    {
+        // La base supprime en cascade offres, candidatures et messages, mais pas le fichier du CV :
+        // on l'efface ici pour ne pas conserver de données personnelles après la suppression du compte (RGPD).
+        static::deleting(function (User $user) {
+            if ($user->cv_path) {
+                Storage::disk('local')->delete($user->cv_path);
+                Storage::disk('public')->delete($user->cv_path);
+            }
+        });
+    }
 }

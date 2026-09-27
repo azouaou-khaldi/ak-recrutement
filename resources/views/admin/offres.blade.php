@@ -7,13 +7,13 @@
     <h1 class="text-2xl font-extrabold">Gestion des <span class="text-brand">offres</span></h1>
     <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
         <input type="text" name="recherche" value="{{ request('recherche') }}" placeholder="Rechercher..."
-            class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand placeholder-gray-500">
-        <select name="statut" class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand">
+            class="min-h-11 sm:min-h-0 w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand placeholder-gray-500">
+        <select name="statut" class="min-h-11 sm:min-h-0 w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="active" {{ request('statut')=='active'?'selected':'' }}>Actives</option>
             <option value="inactive" {{ request('statut')=='inactive'?'selected':'' }}>Inactives</option>
         </select>
-        <button class="bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold">Filtrer</button>
+        <button class="inline-flex items-center justify-center min-h-11 sm:min-h-0 bg-brand hover:bg-brandDark text-white px-4 py-2 rounded-full text-sm font-semibold">Filtrer</button>
     </form>
 </div>
 

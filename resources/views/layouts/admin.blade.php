@@ -51,9 +51,6 @@
         <x-lateral.section titre="Communication">
             <x-lateral.lien :href="route('admin.contacts')" :actif="request()->routeIs('admin.contacts*')" icone="enveloppe" :badge="$compteurs['contactsNonLus']" badge-label="messages non lus">Messages contact</x-lateral.lien>
         </x-lateral.section>
-        <x-lateral.section titre="Analytique">
-            <x-lateral.lien :href="route('admin.stats')" :actif="request()->routeIs('admin.stats')" icone="statistiques">Statistiques</x-lateral.lien>
-        </x-lateral.section>
         <x-lateral.section titre="Compte">
             <x-lateral.lien :href="route('admin.parametres')" :actif="request()->routeIs('admin.parametres')" icone="parametres">Paramètres</x-lateral.lien>
         </x-lateral.section>
@@ -74,5 +71,7 @@
 </main>
 
 </div>
+{{-- Popup de confirmation des suppressions (resources/js/confirmation.js) --}}
+<x-modale-confirmation />
 </body>
 </html>

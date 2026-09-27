@@ -104,7 +104,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/contacts/{contact}', [AdminController::class, 'showContact'])->name('contacts.show');
         Route::post('/contacts/{contact}/repondre', [AdminController::class, 'repondreContact'])->name('contacts.repondre');
         Route::delete('/contacts/{contact}', [AdminController::class, 'deleteContact'])->name('contacts.delete');
-        Route::get('/statistiques', [AdminController::class, 'stats'])->name('stats');
         Route::get('/parametres', [AdminController::class, 'parametres'])->name('parametres');
         Route::put('/parametres', [AdminController::class, 'updateParametres'])->name('parametres.update');
         Route::put('/parametres/password', [AdminController::class, 'updatePassword'])->name('parametres.password');
