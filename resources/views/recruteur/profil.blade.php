@@ -6,11 +6,11 @@
 <div class="text-2xl font-extrabold mb-5">Mon <span class="text-brand">Profil</span></div>
 
 {{-- HEADER --}}
-<div class="bg-white border border-lightBorder rounded-xl p-6 flex items-center gap-5 mb-4 relative hover:border-brand transition">
+<div class="bg-white border border-lightBorder rounded-xl p-6 flex flex-col sm:flex-row sm:items-center gap-5 mb-4 relative hover:border-brand transition">
     <div class="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-3xl font-extrabold shrink-0">
         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
     </div>
-    <div class="flex-1">
+    <div class="flex-1 min-w-0 sm:pr-28">
         <h2 class="text-xl font-extrabold">{{ auth()->user()->name }}</h2>
         <p class="text-gray-500 text-sm mt-1">{{ auth()->user()->email }}</p>
         @if(auth()->user()->entreprise)
@@ -19,18 +19,18 @@
         @if(auth()->user()->secteur)
             <p class="text-gray-500 text-xs mt-1">{{ auth()->user()->secteur }}</p>
         @endif
-        <div class="flex gap-2 mt-3">
+        <div class="flex flex-wrap gap-2 mt-3">
             <span class="text-xs px-3 py-1 rounded-full border bg-blue-50 text-blue-600 border-blue-300 font-semibold">Recruteur</span>
             <span class="text-xs px-3 py-1 rounded-full border bg-orange-50 text-brand border-brand font-semibold">{{ auth()->user()->offres()->count() }} offres publiées</span>
         </div>
     </div>
-    <a href="{{ route('recruteur.profil.edit') }}" class="absolute top-5 right-5 bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+    <a href="{{ route('recruteur.profil.edit') }}" class="self-start sm:absolute sm:top-5 sm:right-5 bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
         ✏️ Modifier
     </a>
 </div>
 
 {{-- INFOS + ENTREPRISE --}}
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="bg-white border border-lightBorder rounded-xl p-5 hover:border-brand transition">
         <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-sm">Informations personnelles</h3>

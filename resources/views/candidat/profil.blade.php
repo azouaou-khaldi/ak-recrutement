@@ -6,11 +6,11 @@
 <div class="text-2xl font-extrabold mb-5">Mon <span class="text-brand">Profil</span></div>
 
 {{-- HEADER PROFIL --}}
-<div class="bg-white border border-lightBorder rounded-xl p-6 flex items-center gap-5 mb-4 relative hover:border-brand transition">
+<div class="bg-white border border-lightBorder rounded-xl p-6 flex flex-col sm:flex-row sm:items-center gap-5 mb-4 relative hover:border-brand transition">
     <div class="w-20 h-20 rounded-full bg-brand flex items-center justify-center text-3xl font-extrabold shrink-0">
         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
     </div>
-    <div class="flex-1">
+    <div class="flex-1 min-w-0 sm:pr-28">
         <h2 class="text-xl font-extrabold">{{ auth()->user()->name }}</h2>
         <p class="text-gray-500 text-sm mt-1">{{ auth()->user()->email }}
             @if(auth()->user()->ville) · {{ auth()->user()->ville }} @endif
@@ -32,7 +32,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('candidat.profil.edit') }}" class="absolute top-5 right-5 bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+    <a href="{{ route('candidat.profil.edit') }}" class="self-start sm:absolute sm:top-5 sm:right-5 bg-brand hover:bg-brandDark text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
         ✏️ Modifier
     </a>
 </div>
@@ -43,9 +43,9 @@
     $remplis = collect($champs)->filter(fn($c) => auth()->user()->$c)->count();
     $pct = round(($remplis / count($champs)) * 100);
 @endphp
-<div class="bg-white border border-lightBorder rounded-xl p-4 flex items-center gap-4 mb-4">
+<div class="bg-white border border-lightBorder rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
     <p class="text-sm text-gray-500 shrink-0">Profil complété à <span class="text-brand font-bold">{{ $pct }}%</span></p>
-    <div class="flex-1 bg-gray-200 rounded-full h-1.5">
+    <div class="w-full sm:flex-1 bg-gray-200 rounded-full h-1.5">
         <div class="bg-brand h-1.5 rounded-full transition-all" style="width: {{ $pct }}%"></div>
     </div>
     @if($pct < 100)
@@ -56,7 +56,7 @@
 </div>
 
 {{-- INFOS + PRÉSENTATION --}}
-<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
     <div class="bg-white border border-lightBorder rounded-xl p-5 hover:border-brand transition">
         <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-sm">Informations personnelles</h3>
@@ -133,7 +133,7 @@
 </div>
 
 {{-- COMPÉTENCES + CV --}}
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="bg-white border border-lightBorder rounded-xl p-5 hover:border-brand transition">
         <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-sm">Compétences</h3>
@@ -161,7 +161,7 @@
         @if(auth()->user()->cv_path)
             <div class="flex items-center gap-3 bg-white border border-lightBorder rounded-lg p-3">
                 <span class="text-2xl">📄</span>
-                <div class="flex-1">
+                <div class="flex-1 min-w-0">
                     <p class="text-sm font-semibold">CV uploadé</p>
                     <p class="text-xs text-gray-500">Visible par les recruteurs</p>
                 </div>

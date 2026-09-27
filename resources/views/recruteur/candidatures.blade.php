@@ -3,16 +3,16 @@
 
 @section('content')
 
-<div class="flex items-center justify-between mb-5">
+<div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between mb-5">
     <h1 class="text-2xl font-extrabold">Candidatures <span class="text-brand">reçues</span></h1>
-    <form method="GET" class="flex gap-2">
-        <select name="offre" class="bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
+    <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
+        <select name="offre" class="w-full sm:w-auto max-w-full min-w-0 bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Toutes les offres</option>
             @foreach(auth()->user()->offres as $o)
                 <option value="{{ $o->id }}" {{ request('offre') == $o->id ? 'selected' : '' }}>{{ $o->titre }}</option>
             @endforeach
         </select>
-        <select name="statut" class="bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
+        <select name="statut" class="w-full sm:w-auto max-w-full min-w-0 bg-white border border-lightBorder text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="en_attente" {{ request('statut')=='en_attente'?'selected':'' }}>En attente</option>
             <option value="acceptee" {{ request('statut')=='acceptee'?'selected':'' }}>Acceptées</option>
@@ -29,7 +29,8 @@
     </div>
 @else
     <div class="bg-white border border-lightBorder rounded-xl overflow-hidden">
-        <table class="w-full text-sm">
+        <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[760px]">
             <thead class="bg-light border-b border-lightBorder">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Candidat</th>
@@ -66,10 +67,10 @@
                     </td>
                     <td class="px-4 py-3 text-gray-500 text-xs">{{ $c->created_at->format('d/m/Y') }}</td>
                     <td class="px-4 py-3">
-                        <span class="text-xs px-2 py-1 rounded-full border font-semibold {{ $sColors[$c->statut] }}">{{ $sLabels[$c->statut] }}</span>
+                        <span class="text-xs px-2 py-1 rounded-full border font-semibold whitespace-nowrap {{ $sColors[$c->statut] }}">{{ $sLabels[$c->statut] }}</span>
                     </td>
                     <td class="px-4 py-3">
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 whitespace-nowrap">
                             @if($c->statut == 'en_attente')
                                 <form method="POST" action="{{ route('candidatures.statut', $c) }}">
                                     @csrf @method('PATCH')
@@ -98,6 +99,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
         <div class="px-4 py-3 border-t border-lightBorder">{{ $candidatures->withQueryString()->links() }}</div>
     </div>
 @endif

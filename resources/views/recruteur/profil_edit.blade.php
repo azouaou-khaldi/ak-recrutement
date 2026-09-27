@@ -19,7 +19,7 @@
 
     <div class="bg-white border border-lightBorder rounded-xl p-6">
         <h2 class="font-bold mb-4">Informations personnelles</h2>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Nom complet</label>
                 <input type="text" name="name" value="{{ old('name', auth()->user()->name) }}" required
@@ -47,7 +47,7 @@
 
     <div class="bg-white border border-lightBorder rounded-xl p-6">
         <h2 class="font-bold mb-4">Mon entreprise</h2>
-        <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
                 <label class="block text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Nom de l'entreprise</label>
                 <input type="text" name="entreprise" value="{{ old('entreprise', auth()->user()->entreprise) }}"

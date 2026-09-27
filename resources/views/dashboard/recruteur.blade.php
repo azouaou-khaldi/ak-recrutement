@@ -6,7 +6,7 @@
 <div class="text-2xl font-extrabold mb-5">Tableau de <span class="text-brand">bord</span></div>
 
 {{-- STATS --}}
-<div class="grid grid-cols-3 gap-4 mb-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
     <div class="bg-white border border-lightBorder rounded-xl p-5 flex items-center gap-4 hover:border-brand transition">
         <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center text-xl shrink-0">💼</div>
         <div>
@@ -38,7 +38,7 @@
 </div>
 
 {{-- CANDIDATURES + OFFRES --}}
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
     {{-- DERNIÈRES CANDIDATURES --}}
     <div class="bg-white border border-lightBorder rounded-xl p-5">
@@ -52,17 +52,17 @@
             $initial = strtoupper(substr($c->candidat->name, 0, 1));
             $color = $avatarColors[$initial] ?? 'bg-brand';
         @endphp
-        <div class="flex items-center justify-between py-2.5 border-b border-lightBorder last:border-0">
-            <div class="flex items-center gap-2">
+        <div class="flex items-center justify-between gap-3 py-2.5 border-b border-lightBorder last:border-0">
+            <div class="flex items-center gap-2 min-w-0">
                 <div class="w-8 h-8 rounded-full {{ $color }} flex items-center justify-center text-xs font-bold shrink-0">
                     {{ strtoupper(substr($c->candidat->name, 0, 2)) }}
                 </div>
-                <div>
-                    <p class="text-sm font-semibold">{{ $c->candidat->name }}</p>
-                    <p class="text-xs text-gray-600">{{ $c->offre->titre }}</p>
+                <div class="min-w-0">
+                    <p class="text-sm font-semibold break-words">{{ $c->candidat->name }}</p>
+                    <p class="text-xs text-gray-600 break-words">{{ $c->offre->titre }}</p>
                 </div>
             </div>
-            <div class="flex gap-1.5">
+            <div class="flex gap-1.5 shrink-0">
                 @if($c->statut == 'en_attente')
                     <form method="POST" action="{{ route('candidatures.statut', $c) }}">
                         @csrf @method('PATCH')
@@ -94,13 +94,13 @@
             <a href="{{ route('offres.create') }}" class="text-xs bg-brand hover:bg-brandDark text-white px-3 py-1.5 rounded-lg font-semibold transition">+ Nouvelle offre</a>
         </div>
         @forelse($dernieres_offres as $offre)
-        <div class="flex items-center justify-between py-2.5 border-b border-lightBorder last:border-0">
-            <div>
-                <p class="text-sm font-semibold">{{ $offre->titre }}</p>
+        <div class="flex items-center justify-between gap-3 py-2.5 border-b border-lightBorder last:border-0">
+            <div class="min-w-0">
+                <p class="text-sm font-semibold break-words">{{ $offre->titre }}</p>
                 <p class="text-xs text-gray-600">{{ $offre->lieu }} · {{ $offre->type_contrat }}</p>
                 <p class="text-xs text-brand font-semibold mt-0.5">{{ $offre->candidatures_count }} candidature(s)</p>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-col sm:flex-row items-end sm:items-center gap-2 shrink-0">
                 <span class="text-xs px-2 py-0.5 rounded-full border font-semibold {{ $offre->active ? 'bg-green-50 text-green-700 border-green-300' : 'bg-gray-100 text-gray-500 border-gray-300' }}">
                     {{ $offre->active ? 'Active' : 'Inactive' }}
                 </span>

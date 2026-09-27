@@ -3,12 +3,12 @@
 
 @section('content')
 
-<div class="flex items-center justify-between mb-6">
+<div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between mb-6">
     <h1 class="text-2xl font-extrabold">Gestion des <span class="text-brand">offres</span></h1>
-    <form method="GET" class="flex gap-2">
+    <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
         <input type="text" name="recherche" value="{{ request('recherche') }}" placeholder="Rechercher..."
-            class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600">
-        <select name="statut" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
+            class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600">
+        <select name="statut" class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
             <option value="">Tous les statuts</option>
             <option value="active" {{ request('statut')=='active'?'selected':'' }}>Actives</option>
             <option value="inactive" {{ request('statut')=='inactive'?'selected':'' }}>Inactives</option>
@@ -18,7 +18,8 @@
 </div>
 
 <div class="bg-darkCard border border-darkBorder rounded-xl overflow-hidden">
-    <table class="w-full text-sm">
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm min-w-[680px]">
         <thead class="bg-dark border-b border-darkBorder">
             <tr>
                 <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Offre</th>
@@ -62,6 +63,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
     <div class="px-4 py-3 border-t border-darkBorder">{{ $offres->withQueryString()->links() }}</div>
 </div>
 

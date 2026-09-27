@@ -3,13 +3,13 @@
 
 @section('content')
 
-<div class="flex items-center justify-between mb-6">
+<div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between mb-6">
     <h1 class="text-2xl font-extrabold">Gestion des <span class="text-brand">utilisateurs</span></h1>
-    <div class="flex gap-2">
-        <form method="GET" class="flex gap-2">
+    <div>
+        <form method="GET" class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2">
             <input type="text" name="recherche" value="{{ request('recherche') }}" placeholder="Rechercher..."
-                class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600">
-            <select name="role" class="bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
+                class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand placeholder-gray-600">
+            <select name="role" class="w-full sm:w-auto max-w-full min-w-0 bg-darkCard border border-darkBorder text-white rounded-lg px-3 py-2 text-sm focus:outline-hidden focus:border-brand">
                 <option value="">Tous les rôles</option>
                 <option value="candidat" {{ request('role')=='candidat'?'selected':'' }}>Candidats</option>
                 <option value="recruteur" {{ request('role')=='recruteur'?'selected':'' }}>Recruteurs</option>
@@ -20,7 +20,8 @@
 </div>
 
 <div class="bg-darkCard border border-darkBorder rounded-xl overflow-hidden">
-    <table class="w-full text-sm">
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm min-w-[680px]">
         <thead class="bg-dark border-b border-darkBorder">
             <tr>
                 <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Utilisateur</th>
@@ -49,13 +50,13 @@
                     </div>
                 </td>
                 <td class="px-4 py-3">
-                    <span class="text-xs px-2 py-1 rounded-full border font-semibold {{ $roleColors[$user->role] }}">{{ ucfirst($user->role) }}</span>
+                    <span class="text-xs px-2 py-1 rounded-full border font-semibold whitespace-nowrap {{ $roleColors[$user->role] }}">{{ ucfirst($user->role) }}</span>
                 </td>
                 <td class="px-4 py-3">
                     @if($user->suspendu)
-                        <span class="text-xs px-2 py-1 rounded-full border font-semibold bg-red-950 text-red-400 border-red-700">Suspendu</span>
+                        <span class="text-xs px-2 py-1 rounded-full border font-semibold whitespace-nowrap bg-red-950 text-red-400 border-red-700">Suspendu</span>
                     @else
-                        <span class="text-xs px-2 py-1 rounded-full border font-semibold bg-green-950 text-green-400 border-green-700">Actif</span>
+                        <span class="text-xs px-2 py-1 rounded-full border font-semibold whitespace-nowrap bg-green-950 text-green-400 border-green-700">Actif</span>
                     @endif
                 </td>
                 <td class="px-4 py-3 text-gray-500 text-xs">{{ $user->created_at->format('d/m/Y') }}</td>
@@ -82,6 +83,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
     <div class="px-4 py-3 border-t border-darkBorder">{{ $users->withQueryString()->links() }}</div>
 </div>
 

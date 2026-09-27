@@ -37,4 +37,9 @@
     [role='button']:not(:disabled) {
         cursor: pointer;
     }
+
+    /* Les mots très longs (e-mails, URL) passent à la ligne au lieu de sortir des cartes sur mobile */
+    main {
+        overflow-wrap: break-word;
+    }
 }
