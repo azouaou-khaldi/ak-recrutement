@@ -21,9 +21,10 @@
             <button type="submit" class="bg-brand hover:bg-brandDark text-white font-semibold px-6 py-3 rounded-lg transition">Rechercher</button>
         </form>
         <div class="flex justify-center gap-10 mt-10">
-            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">2 400+</p><p class="text-white text-sm">Offres actives</p></div>
-            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">850+</p><p class="text-white text-sm">Entreprises</p></div>
-            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">12 000+</p><p class="text-white text-sm">Candidats inscrits</p></div>
+            {{-- Chiffres réels calculés dans PageController@home --}}
+            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">{{ number_format($stats['offres'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['offres'] > 1 ? 'Offres actives' : 'Offre active' }}</p></div>
+            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">{{ number_format($stats['entreprises'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['entreprises'] > 1 ? 'Entreprises' : 'Entreprise' }}</p></div>
+            <div class="bg-black/40 rounded-lg px-4 py-2"><p class="text-3xl font-bold text-brand">{{ number_format($stats['candidats'], 0, ',', ' ') }}</p><p class="text-white text-sm">{{ $stats['candidats'] > 1 ? 'Candidats inscrits' : 'Candidat inscrit' }}</p></div>
         </div>
     </div>
 </section>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactAdminMail;
 use App\Models\Contact;
+use App\Models\Offre;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -13,7 +15,14 @@ class PageController extends Controller
 {
     public function home(): View
     {
-        return view('home');
+        $stats = [
+            'offres'      => Offre::where('active', true)->count(),
+            // Entreprises qui recrutent actuellement (noms distincts sur les offres actives)
+            'entreprises' => Offre::where('active', true)->distinct()->count('entreprise'),
+            'candidats'   => User::where('role', 'candidat')->count(),
+        ];
+
+        return view('home', compact('stats'));
     }
 
     public function contact(): View
