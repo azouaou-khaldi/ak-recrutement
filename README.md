@@ -23,10 +23,9 @@ DB_PASSWORD=
 Puis :
 ```bash
 php artisan migrate --seed
-php artisan storage:link
 ```
 
-⚠️ **`storage:link` est obligatoire** — sans cette commande, les CV uploadés par les candidats ne seront pas accessibles.
+Les CV sont stockés dans un dossier privé (`storage/app/private/cvs`) et ne sont jamais accessibles par une URL publique.
 
 Configure l'envoi d'email dans `.env` (exemple Gmail) :
 ```
@@ -61,8 +60,8 @@ Les comptes candidat et recruteur s'inscrivent via `/inscription`.
 
 ```
 app/Http/Controllers/    Contrôleurs (Admin, Candidat, Recruteur, Offre, Candidature, Message)
-app/Http/Middleware/     CheckRole, CheckSuspendu, AdminMiddleware
-app/Models/              User, Offre, Candidature, Message, Contact, Signalement
+app/Http/Middleware/     CheckRole, CheckSuspendu
+app/Models/              User, Offre, Candidature, Message, Contact
 app/Mail/                4 mailables avec templates dans resources/views/emails
 resources/views/         Vues Blade organisées par rôle (admin/, candidat/, recruteur/)
 ```
@@ -73,7 +72,7 @@ resources/views/         Vues Blade organisées par rôle (admin/, candidat/, re
 php artisan test
 ```
 
-Couvre : inscription, connexion, blocage des comptes suspendus, publication d'offre (recruteur uniquement), candidature (candidat uniquement).
+Couvre : inscription, connexion, blocage des comptes suspendus, publication d'offre (recruteur uniquement), candidature (candidat uniquement), et les tests de sécurité (`tests/Feature/SecuriteTest.php`) : limitation des tentatives de connexion, protection des CV, offres désactivées, robustesse des mots de passe, accès à l'administration.
 
 ## 🔒 Points de sécurité implémentés
 
@@ -82,3 +81,6 @@ Couvre : inscription, connexion, blocage des comptes suspendus, publication d'of
 - La messagerie vérifie qu'un lien légitime existe entre les deux utilisateurs avant d'autoriser l'accès à une conversation
 - Un recruteur ne peut voir le profil complet d'un candidat que si celui-ci a postulé à l'une de ses offres
 - Seul le propriétaire d'une offre peut la modifier ou la supprimer
+- Les CV sont privés : seuls le candidat, l'admin et les recruteurs à qui il a postulé peuvent les télécharger
+- Connexion, inscription et formulaire de contact limités à 5 tentatives par minute (protection contre la force brute et le spam)
+- Une offre désactivée n'est plus visible ni accessible aux candidatures
