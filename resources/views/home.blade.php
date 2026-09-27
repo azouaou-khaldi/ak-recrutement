@@ -14,7 +14,7 @@
         <h1 class="text-5xl font-extrabold mb-4 leading-tight text-white drop-shadow-lg">
             Trouvez l'emploi qui <span class="text-brand">vous correspond</span>
         </h1>
-        <p class="text-white text-lg mb-10 drop-shadow-md">Des milliers d'offres dans tous les secteurs vous attendent.</p>
+        <p class="text-white text-lg mb-10 drop-shadow-md">Des offres dans tous les secteurs vous attendent.</p>
         <form action="{{ route('offres.index') }}" method="GET" class="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
             <input type="text" name="recherche" placeholder="🔍 Poste, compétence ou entreprise"
                 class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:outline-hidden focus:border-brand placeholder-gray-400 shadow-xs">
