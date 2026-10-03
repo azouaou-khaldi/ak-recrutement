@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Mail\CandidatureRecueMail;
+use App\Models\Candidature;
 use App\Models\Offre;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class OffreEtCandidatureTest extends TestCase
@@ -50,6 +53,22 @@ class OffreEtCandidatureTest extends TestCase
             'offre_id' => $offre->id,
             'user_id' => $candidat->id,
         ]);
+    }
+
+    public function test_postuler_deux_fois_n_envoie_qu_un_seul_email_au_recruteur(): void
+    {
+        Mail::fake();
+        $recruteur = User::factory()->create(['role' => 'recruteur']);
+        $candidat = User::factory()->create(['role' => 'candidat']);
+        $offre = Offre::factory()->create(['user_id' => $recruteur->id]);
+
+        $this->actingAs($candidat)->post("/offres/{$offre->id}/postuler", ['message' => 'Premier envoi']);
+        $this->actingAs($candidat)->post("/offres/{$offre->id}/postuler", ['message' => 'Deuxième envoi'])
+            ->assertSessionHas('error', 'Vous avez déjà postulé à cette offre.');
+
+        $this->assertSame(1, Candidature::where('offre_id', $offre->id)->count());
+        Mail::assertQueuedCount(1);
+        Mail::assertQueued(CandidatureRecueMail::class, fn ($mail) => $mail->hasTo($recruteur->email));
     }
 
     public function test_un_recruteur_ne_peut_pas_postuler(): void

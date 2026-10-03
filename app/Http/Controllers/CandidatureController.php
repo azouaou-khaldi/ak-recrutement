@@ -31,6 +31,11 @@ class CandidatureController extends Controller
             ['message' => $request->message]
         );
 
+        // Déjà postulé : pas de nouvel e-mail au recruteur
+        if (!$candidature->wasRecentlyCreated) {
+            return back()->with('error', 'Vous avez déjà postulé à cette offre.');
+        }
+
         // Email au recruteur
         Mail::to($offre->recruteur->email)->send(new CandidatureRecueMail($candidature));
 
