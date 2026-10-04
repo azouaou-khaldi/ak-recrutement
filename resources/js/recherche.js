@@ -13,6 +13,7 @@ const DELAI_ANTI_REBOND = 300; // millisecondes
 
 export function initRechercheOffres() {
     const formulaire = document.querySelector('[data-recherche-offres]');
+    // Ce script est chargé sur toutes les pages : on s'arrête si on n'est pas sur la page des offres
     if (!formulaire) {
         return;
     }
@@ -34,6 +35,7 @@ export function initRechercheOffres() {
         const controleur = new AbortController();
         requeteEnCours = controleur;
 
+        // Résultats grisés pendant le chargement, pour montrer que la recherche est en cours
         resultats.classList.add('opacity-50');
 
         try {
@@ -46,17 +48,20 @@ export function initRechercheOffres() {
                 throw new Error(`Erreur serveur : ${reponse.status}`);
             }
 
+            // innerHTML sans risque XSS ici : le HTML vient de notre serveur et Blade a déjà échappé le texte
             resultats.innerHTML = await reponse.text();
 
             // Met à jour l'adresse (lien partageable, bouton retour) sans recharger la page
             history.replaceState(null, '', url);
         } catch (erreur) {
+            // Requête annulée volontairement (nouvelle frappe) : ce n'est pas une vraie erreur
             if (erreur.name === 'AbortError') {
                 return;
             }
             // En cas de problème, on revient à la recherche classique
             formulaire.submit();
         } finally {
+            // On enlève le gris seulement si aucune requête plus récente n'est en cours
             if (requeteEnCours === controleur) {
                 resultats.classList.remove('opacity-50');
             }

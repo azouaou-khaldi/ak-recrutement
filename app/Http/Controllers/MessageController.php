@@ -10,6 +10,7 @@ use Illuminate\View\View;
 
 class MessageController extends Controller
 {
+    // Liste des conversations : on regroupe les messages par interlocuteur (l'autre personne)
     public function index(): View
     {
         $userId = auth()->id();
@@ -40,6 +41,7 @@ class MessageController extends Controller
             ->orderBy('created_at')
             ->get();
 
+        // Ouvrir la conversation marque comme lus les messages qu'on a reçus
         Message::where('sender_id', $user->id)
             ->where('receiver_id', $authId)
             ->update(['lu' => true]);
@@ -47,6 +49,7 @@ class MessageController extends Controller
         return view('messages.show', compact('messages', 'user'));
     }
 
+    // Envoi d'un message. RG08 : on vérifie le droit d'écrire avant d'enregistrer quoi que ce soit
     public function store(Request $request, User $user): RedirectResponse
     {
         $this->authorizeConversation($user);
@@ -64,7 +67,7 @@ class MessageController extends Controller
     }
 
     /**
-     * Vérifie que l'utilisateur connecté a le droit de discuter avec $user :
+     * RG08 : vérifie que l'utilisateur connecté a le droit de discuter avec $user :
      * - un échange existe déjà entre les deux, OU
      * - l'un est candidat ayant postulé à une offre de l'autre (recruteur), OU
      * - l'un est admin.

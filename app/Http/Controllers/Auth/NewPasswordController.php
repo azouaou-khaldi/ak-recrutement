@@ -30,6 +30,7 @@ class NewPasswordController extends Controller
         $request->validate([
             'token'    => 'required',
             'email'    => 'required|email',
+            // RG09 : mot de passe fort, même règle qu'à l'inscription
             'password' => ['required', 'confirmed', RegleMotDePasse::min(8)->mixedCase()->numbers()->symbols()],
         ]);
 

@@ -13,6 +13,7 @@ use Illuminate\View\View;
 
 class PageController extends Controller
 {
+    // Page d'accueil : les chiffres affichés viennent de la base, pas de valeurs inventées
     public function home(): View
     {
         $stats = [
@@ -30,6 +31,7 @@ class PageController extends Controller
         return view('contact');
     }
 
+    // Formulaire de contact, ouvert aux visiteurs. RG13 : limité à 5 envois par minute (throttle dans les routes)
     public function contactStore(Request $request): RedirectResponse
     {
         $request->validate([
@@ -41,12 +43,13 @@ class PageController extends Controller
 
         $contact = Contact::create($request->only('nom', 'email', 'sujet', 'message'));
 
-        // Email à l'admin
+        // Email à l'admin (adresse lue dans le .env, pas écrite dans le code)
         Mail::to(config('app.admin_email'))->send(new ContactAdminMail($contact));
 
         return back()->with('success', 'Votre message a bien été envoyé.');
     }
 
+    // Une seule adresse /tableau-de-bord : on envoie chaque utilisateur vers le tableau de bord de son rôle
     public function dashboard(): RedirectResponse|View
     {
         $user = auth()->user();

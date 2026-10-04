@@ -28,6 +28,7 @@ class DemoSeeder extends Seeder
 
     public function run(): void
     {
+        // Sécurité : les comptes de démo ont un mot de passe connu de tous, ils ne doivent pas exister en ligne
         if (app()->environment('production')) {
             throw new RuntimeException('DemoSeeder ne doit pas être lancé en production.');
         }
@@ -51,6 +52,7 @@ class DemoSeeder extends Seeder
         ]);
     }
 
+    // Date dans le passé à une heure de bureau au hasard, pour que les données aient l'air réelles
     private function joursAvant(int $jours)
     {
         return now()->subDays($jours)->setTime(rand(8, 18), rand(0, 59));
@@ -70,6 +72,7 @@ class DemoSeeder extends Seeder
                 'Laboratoire de distribution pharmaceutique basé à Lille, en forte croissance.', 'https://www.pharmalys.example.com', 90],
         ];
 
+        // firstOrCreate : si le compte existe déjà, il est réutilisé (pas de doublon quand on relance le seeder)
         $recruteurs = [];
         foreach ($donnees as $cle => [$nom, $email, $entreprise, $secteur, $taille, $description, $site, $jours]) {
             $recruteurs[$cle] = User::firstOrCreate(['email' => $email], [
@@ -105,6 +108,7 @@ class DemoSeeder extends Seeder
                 "Préparation des commandes à destination des pharmacies, dans le respect des règles de traçabilité.", 80],
             'data' => ['karim', 'Analyste de données', 'Lille', 'Freelance', '450 € / jour', 'SQL, Python, Power BI',
                 "Mission de 6 mois pour mettre en place des tableaux de bord de suivi des ventes et des stocks.", 20],
+            // Offre désactivée (9e valeur à false) : sert à montrer RG05 pendant la démo
             'ancienne' => ['karim', 'Assistant logistique', 'Lille', 'CDD', '1 900 € brut / mois', 'Pack Office',
                 "Offre pourvue : conservée pour l'historique.", 175, false],
         ];
@@ -158,6 +162,7 @@ class DemoSeeder extends Seeder
         return $candidats;
     }
 
+    // Les trois statuts sont représentés, pour que chaque écran ait quelque chose à montrer
     private function creerCandidatures(array $o, array $c): void
     {
         $donnees = [
@@ -183,11 +188,13 @@ class DemoSeeder extends Seeder
         }
     }
 
+    // Une conversation entre Léa et Claire, liées par une candidature acceptée (RG08)
     private function creerMessages(array $o, array $c): void
     {
         $claire = $o['dev_laravel']->recruteur;
         $lea = $c['lea'];
 
+        // Conversation déjà créée lors d'un lancement précédent : on ne la recrée pas
         $dejaPresent = Message::where('sender_id', $lea->id)->where('receiver_id', $claire->id)->exists();
         if ($dejaPresent) {
             return;
@@ -207,6 +214,7 @@ class DemoSeeder extends Seeder
         }
     }
 
+    // Un message non lu, un message avec réponse et un message lu sans réponse
     private function creerContacts(): void
     {
         $donnees = [

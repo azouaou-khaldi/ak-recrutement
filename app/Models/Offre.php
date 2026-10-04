@@ -25,6 +25,7 @@ class Offre extends Model
         'active' => 'boolean',
     ];
 
+    // L'auteur de l'offre (colonne user_id)
     public function recruteur()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -35,6 +36,7 @@ class Offre extends Model
         return $this->hasMany(Candidature::class);
     }
 
+    // Sert à afficher « Déjà postulé » au lieu du bouton (RG04). Visiteur non connecté : false
     public function aPostule(?User $user): bool
     {
         if (!$user) {

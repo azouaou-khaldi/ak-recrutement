@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // Champs autorisés dans create() et update(). Les contrôleurs filtrent aussi avec only(),
+    // donc role et suspendu ne peuvent pas être changés depuis un formulaire de profil
     protected $fillable = [
         'name', 'email', 'password', 'role', 'suspendu',
         // Candidat
@@ -22,17 +24,19 @@ class User extends Authenticatable
         'entreprise', 'secteur', 'taille_entreprise', 'description_entreprise', 'site_web',
     ];
 
+    // Jamais affichés si l'utilisateur est transformé en tableau ou en JSON
     protected $hidden = ['password', 'remember_token'];
 
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
+            'password'          => 'hashed', // le mot de passe est haché (bcrypt) avant d'être enregistré
             'suspendu'          => 'boolean',
         ];
     }
 
+    // RG01 : un compte a un seul rôle, stocké dans la colonne role
     public function isAdmin(): bool { return $this->role === 'admin'; }
     public function isRecruteur(): bool { return $this->role === 'recruteur'; }
     public function isCandidat(): bool { return $this->role === 'candidat'; }

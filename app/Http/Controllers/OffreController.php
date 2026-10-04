@@ -9,10 +9,12 @@ use Illuminate\View\View;
 
 class OffreController extends Controller
 {
+    // Liste publique des offres : seulement les offres actives (RG05)
     public function index(Request $request): View
     {
         $query = Offre::with('recruteur')->where('active', true)->latest();
 
+        // Recherche par poste, entreprise ou ville. Eloquent protège contre l'injection SQL (requête préparée)
         if ($request->filled('recherche')) {
             $query->where(function ($q) use ($request) {
                 $q->where('titre', 'like', '%' . $request->recherche . '%')
@@ -33,7 +35,8 @@ class OffreController extends Controller
 
     public function show(Offre $offre): View
     {
-        // Une offre désactivée n'est visible que par son recruteur et par l'admin
+        // RG05 : une offre désactivée n'est visible que par son recruteur et par l'admin
+        // (404 plutôt que 403, pour ne pas révéler que l'offre existe)
         if (!$offre->active && auth()->id() !== $offre->user_id && !auth()->user()?->isAdmin()) {
             abort(404);
         }
@@ -61,6 +64,7 @@ class OffreController extends Controller
             'salaire' => 'nullable|string|max:255',
         ]);
 
+        // Le propriétaire vient de la session, jamais du formulaire : impossible de publier au nom d'un autre
         $data['user_id'] = auth()->id();
 
         $offre = Offre::create($data);
@@ -102,6 +106,7 @@ class OffreController extends Controller
         return redirect()->route('dashboard')->with('success', 'Offre supprimée.');
     }
 
+    // RG02 : seul un recruteur publie des offres
     private function authorizeRecruteur(): void
     {
         if (!auth()->check() || !auth()->user()->isRecruteur()) {
@@ -109,6 +114,7 @@ class OffreController extends Controller
         }
     }
 
+    // Seul l'auteur de l'offre peut la modifier ou la supprimer, même un autre recruteur ne peut pas
     private function authorizeOwner(Offre $offre): void
     {
         if (auth()->id() !== $offre->user_id) {

@@ -35,6 +35,7 @@ class Candidature extends Model
         return $this->belongsTo(Offre::class);
     }
 
+    // La colonne s'appelle user_id, mais ici l'utilisateur est toujours un candidat
     public function candidat()
     {
         return $this->belongsTo(User::class, 'user_id');

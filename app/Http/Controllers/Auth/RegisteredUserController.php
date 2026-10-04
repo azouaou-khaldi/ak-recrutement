@@ -25,14 +25,16 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
+            // RG09 : 8 caractères minimum, majuscule, minuscule, chiffre et symbole
             'password' => ['required', 'confirmed', Rules\Password::min(8)->mixedCase()->numbers()->symbols()],
+            // RG01 : impossible de s'inscrire en admin, même en modifiant le formulaire
             'role'     => 'required|in:candidat,recruteur',
         ]);
 
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password), // jamais stocké en clair
             'role'     => $request->role,
         ]);
 

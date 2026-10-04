@@ -18,6 +18,7 @@ class PasswordResetLinkController extends Controller
         return view('auth.mot-de-passe-oublie');
     }
 
+    // RG13 : limité à 5 demandes par minute (throttle dans les routes) pour éviter d'inonder une boîte mail
     public function store(Request $request): RedirectResponse
     {
         $request->validate(['email' => 'required|email']);

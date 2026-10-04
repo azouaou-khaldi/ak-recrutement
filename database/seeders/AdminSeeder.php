@@ -21,13 +21,14 @@ class AdminSeeder extends Seeder
             return;
         }
 
+        // Pas de mot de passe dans le .env : on en génère un aléatoire de 16 caractères (pas de mot de passe par défaut)
         $motDePasse = config('app.admin_password') ?: Str::password(16);
 
         User::create([
             'name'     => 'Administrateur',
             'email'    => $email,
-            'password' => $motDePasse,
-            'role'     => 'admin',
+            'password' => $motDePasse, // haché par le cast "hashed" du modèle User
+            'role'     => 'admin',     // RG01 : seul moyen de créer un admin, l'inscription ne le propose pas
         ]);
 
         $this->command?->info("Compte admin créé : $email");

@@ -15,6 +15,7 @@ class BarreLateraleRecruteurComposer
     {
         $recruteur = auth()->user();
 
+        // Seulement les offres et candidatures de CE recruteur, jamais celles des autres
         $view->with('compteurs', [
             'offres'                 => $recruteur->offres()->count(),
             'candidaturesEnAttente'  => Candidature::whereHas('offre', fn ($q) => $q->where('user_id', $recruteur->id))

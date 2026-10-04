@@ -11,6 +11,7 @@ class RecruteurController extends Controller
 {
     use GereCompte;
 
+    // Tableau de bord : on ne compte que les candidatures reçues sur SES offres (whereHas sur user_id)
     public function dashboard(): View
     {
         $stats = [
@@ -36,6 +37,7 @@ class RecruteurController extends Controller
         return view('recruteur.offres', compact('offres'));
     }
 
+    // Candidatures reçues, avec filtres par offre et par statut. Le recruteur ne voit jamais celles des autres
     public function candidatures(Request $request): View
     {
         $query = Candidature::whereHas('offre', fn($q) => $q->where('user_id', auth()->id()))
@@ -61,7 +63,7 @@ class RecruteurController extends Controller
             abort(404);
         }
 
-        // Sécurité : le recruteur ne peut voir que les candidats ayant postulé à l'une de ses offres
+        // RG07 : le recruteur ne peut voir que les candidats ayant postulé à l'une de ses offres
         $lien = $candidat->candidatures()->whereHas('offre', fn($q) => $q->where('user_id', auth()->id()))->exists();
         if (!$lien) {
             abort(403, 'Ce candidat n\'a pas postulé à l\'une de vos offres.');
@@ -97,6 +99,7 @@ class RecruteurController extends Controller
             'description_entreprise' => 'nullable|string',
         ]);
 
+        // only() : seuls les champs du profil sont enregistrés (le rôle ne peut pas être changé)
         auth()->user()->update($request->only([
             'name', 'email', 'telephone', 'site_web',
             'entreprise', 'secteur', 'taille_entreprise', 'description_entreprise'

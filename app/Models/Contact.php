@@ -9,6 +9,7 @@ class Contact extends Model
 {
     use HasFactory;
 
+    // Message envoyé par le formulaire de contact. lu passe à true quand l'admin l'ouvre (RG14)
     protected $fillable = ['nom', 'email', 'sujet', 'message', 'lu', 'reponse', 'repondu_le'];
 
     protected $casts = [

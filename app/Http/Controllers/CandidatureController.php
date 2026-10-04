@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Mail;
 
 class CandidatureController extends Controller
 {
+    // Le candidat postule à une offre
     public function store(Request $request, Offre $offre): RedirectResponse
     {
+        // RG03 : seul un candidat peut postuler
         if (!auth()->user()->isCandidat()) {
             abort(403, 'Seuls les candidats peuvent postuler.');
         }
 
+        // RG05 : on ne postule pas à une offre désactivée
         if (!$offre->active) {
             abort(404);
         }
@@ -26,6 +29,8 @@ class CandidatureController extends Controller
             'message' => 'nullable|string',
         ]);
 
+        // RG04 : une seule candidature par offre. firstOrCreate renvoie l'existante au lieu d'en créer une 2e
+        // (la base a aussi une contrainte unique sur offre_id + user_id)
         $candidature = Candidature::firstOrCreate(
             ['offre_id' => $offre->id, 'user_id' => auth()->id()],
             ['message' => $request->message]
@@ -42,13 +47,15 @@ class CandidatureController extends Controller
         return back()->with('success', 'Votre candidature a bien été envoyée.');
     }
 
+    // Accepter ou refuser une candidature
     public function updateStatut(Request $request, Candidature $candidature): RedirectResponse
     {
-        // Le recruteur propriétaire de l'offre, ou l'admin (page « Gestion des candidatures »)
+        // RG06 : le recruteur propriétaire de l'offre, ou l'admin (page « Gestion des candidatures »)
         if (auth()->id() !== $candidature->offre->user_id && !auth()->user()->isAdmin()) {
             abort(403);
         }
 
+        // in: refuse toute autre valeur envoyée à la main dans la requête
         $request->validate([
             'statut' => 'required|in:en_attente,acceptee,refusee',
         ]);

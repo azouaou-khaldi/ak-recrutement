@@ -17,6 +17,7 @@ class AdminController extends Controller
     use GereCompte;
 
     // ─── DASHBOARD ───────────────────────────────────────────
+    // Chiffres clés de la plateforme + activité des 6 derniers mois pour les graphiques
     public function dashboard(): View
     {
         $activite_mois = $this->sixDerniersMois()->mapWithKeys(fn($date) => [
@@ -47,6 +48,7 @@ class AdminController extends Controller
     }
 
     // ─── UTILISATEURS ────────────────────────────────────────
+    // Liste des utilisateurs avec recherche par nom ou e-mail et filtre par rôle
     public function users(Request $request): View
     {
         // Compteurs affichés dans la popup de suppression (chargés en une requête, pas une par ligne)
@@ -69,6 +71,7 @@ class AdminController extends Controller
         return view('admin.user_show', compact('user'));
     }
 
+    // Suspend ou réactive un compte. RG12 : un admin ne peut pas être suspendu
     public function toggleUser(User $user): RedirectResponse
     {
         if ($user->isAdmin()) return back()->with('error', 'Impossible de suspendre un admin.');
@@ -76,6 +79,7 @@ class AdminController extends Controller
         return back()->with('success', $user->suspendu ? 'Compte suspendu.' : 'Compte réactivé.');
     }
 
+    // RG12 : un admin ne peut pas être supprimé. Le CV est effacé par le modèle User (événement deleting)
     public function deleteUser(User $user): RedirectResponse
     {
         if ($user->isAdmin()) return back()->with('error', 'Impossible de supprimer un admin.');
@@ -102,6 +106,7 @@ class AdminController extends Controller
         return view('admin.offres', compact('offres'));
     }
 
+    // RG05 : une offre désactivée disparaît du site public et n'accepte plus de candidature
     public function toggleOffre(Offre $offre): RedirectResponse
     {
         $offre->update(['active' => !$offre->active]);
@@ -115,6 +120,7 @@ class AdminController extends Controller
     }
 
     // ─── CANDIDATURES ────────────────────────────────────────
+    // L'admin voit toutes les candidatures ; with() charge candidat et offre en une fois (pas une requête par ligne)
     public function candidatures(Request $request): View
     {
         $query = Candidature::with(['candidat', 'offre'])->latest();
@@ -134,7 +140,7 @@ class AdminController extends Controller
 
     public function showContact(Contact $contact): View
     {
-        // Ouvrir le message suffit à le marquer comme lu
+        // RG14 : ouvrir le message suffit à le marquer comme lu
         if (!$contact->lu) {
             $contact->update(['lu' => true]);
         }
@@ -142,6 +148,7 @@ class AdminController extends Controller
         return view('admin.contact_show', compact('contact'));
     }
 
+    // On garde la réponse en base pour savoir qu'on a déjà répondu, puis on l'envoie par e-mail
     public function repondreContact(Request $request, Contact $contact): RedirectResponse
     {
         $request->validate([
@@ -176,13 +183,16 @@ class AdminController extends Controller
     {
         $request->validate([
             'name'  => 'required|string|max:255',
+            // unique sauf pour soi-même : on peut garder son propre e-mail
             'email' => 'required|email|unique:users,email,' . auth()->id(),
         ]);
+        // only() : on n'enregistre que ces deux champs, même si le formulaire en envoie d'autres
         auth()->user()->update($request->only('name', 'email'));
         return back()->with('success', 'Informations mises à jour.');
     }
 
     // ─── OUTILS ──────────────────────────────────────────────
+    // Premier jour de chacun des 6 derniers mois, du plus ancien au mois en cours
     private function sixDerniersMois()
     {
         return collect(range(5, 0))->map(fn($i) => now()->startOfMonth()->subMonths($i));

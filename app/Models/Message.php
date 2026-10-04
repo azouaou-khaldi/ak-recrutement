@@ -31,6 +31,7 @@ class Message extends Model
         return $this->belongsTo(User::class, 'receiver_id');
     }
 
+    // Offre liée à la conversation (facultative)
     public function offre()
     {
         return $this->belongsTo(Offre::class);
