@@ -2,7 +2,7 @@
 @section('title', "Offres - AK Recrutement")
 
 @section('content')
-<section class="px-6 py-16 min-h-screen bg-gradient-to-b from-orange-50/40 to-light">
+<section class="px-4 sm:px-6 py-10 sm:py-16 min-h-screen bg-gradient-to-b from-orange-50/40 to-light">
     <h1 class="text-3xl font-extrabold text-center mb-8">Offres <span class="text-brand">disponibles</span></h1>
 
     {{-- Sans JavaScript : recherche classique. Avec JavaScript : résultats en direct (resources/js/recherche.js) --}}
@@ -11,8 +11,9 @@
         <label for="recherche" class="sr-only">Rechercher une offre</label>
         <input type="search" id="recherche" name="recherche" value="{{ request('recherche') }}" autocomplete="off"
             placeholder="Rechercher un poste, une entreprise..."
-            class="flex-1 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500 shadow-xs">
-        <button class="bg-brand hover:bg-brandDark text-white px-5 py-3 rounded-full font-semibold transition">Rechercher</button>
+            class="flex-1 min-w-0 bg-white border border-lightBorder text-gray-900 rounded-lg px-4 py-3 focus:border-brand placeholder-gray-500 shadow-xs">
+        {{-- min-w-0 + shrink-0 : sur petit écran le champ rétrécit au lieu de pousser le bouton hors de l'écran --}}
+        <button class="shrink-0 bg-brand hover:bg-brandDark text-white px-4 sm:px-5 py-3 rounded-full font-semibold transition">Rechercher</button>
     </form>
 
     <div id="resultats-offres" aria-live="polite" class="transition-opacity duration-150">
